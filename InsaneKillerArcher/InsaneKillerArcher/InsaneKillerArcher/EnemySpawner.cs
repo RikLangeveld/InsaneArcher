@@ -10,14 +10,22 @@ namespace InsaneKillerArcher
     {
         private float spawnTime;
         private float currentTime = 0f;
+        
+        public enum EnemyType {
+            Enemy,
+            Zeppelin
+        }
+
+        private EnemyType type;
 
         /// <summary>
         /// Constructor van de EnemySpawner class
         /// </summary>
         /// <param name="spawnTime">De tijd hoelang het duurt totdat er een nieuwe enemy spawnt</param>
-        public EnemySpawner(float spawnTime)
+        public EnemySpawner(float spawnTime, EnemyType type)
         {
             this.spawnTime = spawnTime;
+            this.type = type;
         }
 
         /// <summary>
@@ -31,7 +39,10 @@ namespace InsaneKillerArcher
             //Spawn een enemy als de timer verloopt.
             if (spawnTime < currentTime)
             {
-                Add(new Enemy());
+                if (type == EnemyType.Enemy)
+                    Add(new Enemy());
+                else if (type == EnemyType.Zeppelin)
+                    Add(new Zeppelin());
 
                 currentTime = 0f;
             }
