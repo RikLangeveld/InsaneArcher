@@ -69,6 +69,7 @@ namespace InsaneKillerArcher
             animatedProjectiles = new GameObjectList();
             
             catapult = new Catapult();
+            catapult.Position = new Vector2(200, InsaneKillerArcher.Screen.Y - castle.Height + 85);
             catapultBoulders = new GameObjectList();
 
             Add(castle);
@@ -357,7 +358,7 @@ namespace InsaneKillerArcher
             float adjacent = (enemySpawner.Objects[y].Position.X - archer.Position.X) * 0.3f;
             float opposite = -(enemySpawner.Objects[y].Position.Y - archer.Position.Y) * 1.5f;
 
-            CatapultBoulder boulder = new CatapultBoulder(player.Position, new Vector2(adjacent, opposite));
+            CatapultBoulder boulder = new CatapultBoulder(catapult.Position, new Vector2(adjacent, opposite));
             catapultBoulders.Add(boulder);
         }
 
