@@ -65,18 +65,18 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="spr_enemy_dead_strip5.png">
-      <Name>spr_enemy_dead_strip5</Name>
+    <Compile Include="spr_enemy_dead_strip5%405x1.png">
+      <Name>spr_enemy_dead_strip5%405x1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="spr_enemy_fight_strip2.png">
-      <Name>spr_enemy_fight_strip2</Name>
+    <Compile Include="spr_enemy_fight_strip2%402x1.png">
+      <Name>spr_enemy_fight_strip2%402x1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="spr_enemy_strip2.png">
-      <Name>spr_enemy_strip2</Name>
+    <Compile Include="spr_enemy_strip2%402x1.png">
+      <Name>spr_enemy_strip2%402x1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
