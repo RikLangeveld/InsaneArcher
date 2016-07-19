@@ -78,12 +78,12 @@ namespace InsaneKillerArcher
                 if (enemy.shouldDeleteEnemy())
                     enemy.Visible = false;
 
-                foreach (Arrow arrow in arrows.Objects)
+                for (int i = arrows.Objects.Count-1; i > 0; i--)
                 {
-                    if (enemy.CollidesWith(arrow))
+                    if (enemy.CollidesWith(arrows.Objects[i] as Arrow))
                     {
+                        arrows.Remove(arrows.Objects[i]);
                         enemy.Health -= 50;
-                        arrow.Visible = false;
                     }
                 }
             }
@@ -97,12 +97,12 @@ namespace InsaneKillerArcher
                 if (zeppelin.Health == 0)
                     zeppelin.Dead();
 
-                foreach (Arrow arrow in arrows.Objects)
+                for (int i = arrows.Objects.Count - 1; i > 0; i--)
                 {
-                    if (zeppelin.CollidesWith(arrow))
+                    if (zeppelin.CollidesWith(arrows.Objects[i] as Arrow))
                     {
+                        arrows.Remove(arrows.Objects[i]);
                         zeppelin.Health -= 50;
-                        arrow.Visible = false;
                     }
                 }
             }

@@ -8,7 +8,8 @@ namespace InsaneKillerArcher
 {
     class Zeppelin : SpriteGameObject
     {
-        private Vector2 startPosition = new Vector2(InsaneKillerArcher.Screen.X + 100, GameEnvironment.Random.Next(InsaneKillerArcher.Screen.Y - 750, InsaneKillerArcher.Screen.Y - 300));
+        private Vector2 startPosition = new Vector2(InsaneKillerArcher.Screen.X + 100, 
+            GameEnvironment.Random.Next(InsaneKillerArcher.Screen.Y - 750, InsaneKillerArcher.Screen.Y - 300));
         private float movementSpeed = 200;
         private float health = 300f;
 
