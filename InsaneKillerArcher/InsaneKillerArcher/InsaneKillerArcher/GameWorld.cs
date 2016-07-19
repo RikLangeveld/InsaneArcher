@@ -67,8 +67,11 @@ namespace InsaneKillerArcher
 
         public override void HandleInput(InputHelper inputHelper)
         {
+            //Berekent de Angle van het wapen van de player met behulp van de positie van de muis.
             float opposite = inputHelper.MousePosition.Y - player.Position.Y;
             float adjacent = inputHelper.MousePosition.X - player.Position.X;
+
+            //Heeft nog een restrictie nodig, max/min opposite en adjacent. Zodat de arm niet 360 graden kan draaien.
             player.Weapon.Angle = (float)Math.Atan2(opposite, adjacent);
 
             base.HandleInput(inputHelper);
