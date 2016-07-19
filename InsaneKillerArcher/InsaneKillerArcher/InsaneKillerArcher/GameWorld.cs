@@ -26,6 +26,7 @@ namespace InsaneKillerArcher
         private Player player;
         private GameObjectList arrows;
         private GameObjectList animatedProjectiles;
+        private AnimatedGameObject boulder;
 
         private Random random = new Random(); // for all your Random needs!. :)
 
@@ -124,7 +125,7 @@ namespace InsaneKillerArcher
 
                         upgrade.IsActive = false;
                     }
-                    if(upgrade.Type == UpgradeType.RollingBoulder && upgrade.IsActive)
+                    if (upgrade.Type == UpgradeType.RollingBoulder && upgrade.IsActive)
                     {
                         int boulderStartPosX = 0;
                         int boulderStartPosY = InsaneKillerArcher.Screen.Y - 20;
@@ -132,15 +133,20 @@ namespace InsaneKillerArcher
                         int boulderVelX = 30;
                         int boulderVelY = 0;
 
-                        animatedProjectiles.Add(new Boulder(new Vector2(boulderStartPosX, boulderStartPosY), new Vector2(boulderVelX, boulderVelY)));
-                        upgrade.IsActive = false;
+                        boulder = new Boulder(new Vector2(boulderStartPosX, boulderStartPosY), new Vector2(boulderVelX, boulderVelY));
 
-                        
+                        animatedProjectiles.Add(boulder);
+                        upgrade.IsActive = false;
                     }
-                    if(upgrade.Type == UpgradeType.BoilingOil && upgrade.IsActive)
+                    if (upgrade.Type == UpgradeType.BoilingOil && upgrade.IsActive)
                     {
                         // do stuff if Boiling Oil is activated.
                     }
+                }
+
+                if (IsOutsideRoomRight(boulder.Position.X, boulder.Width))
+                {
+                    animatedProjectiles.Remove(boulder);
                 }
             }
 
