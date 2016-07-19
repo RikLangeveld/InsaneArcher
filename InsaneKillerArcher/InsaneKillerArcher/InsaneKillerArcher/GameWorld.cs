@@ -11,6 +11,7 @@ namespace InsaneKillerArcher
 {
     class GameWorld : GameObjectList
     {
+        private SpriteGameObject background;
         private SpriteGameObject castle;
 
         private GameObjectList groundList;
@@ -22,6 +23,7 @@ namespace InsaneKillerArcher
         {
             castle = new SpriteGameObject("spr_castle");
             groundList = new GameObjectList();
+            Add (new SpriteGameObject("background"));
 
             for (int i = 0; i < InsaneKillerArcher.Screen.X/32; i++)
             {
