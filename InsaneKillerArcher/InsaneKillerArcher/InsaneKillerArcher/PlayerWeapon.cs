@@ -16,6 +16,9 @@ namespace InsaneKillerArcher
             origin = new Vector2(Width / 2, Height / 2);
         }
 
+        /// <summary>
+        /// Overrides de Draw methode uit SpriteGameObject, zodat de angle ook meegenomen wordt bij het tekenen van de sprite.
+        /// </summary>
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(sprite.Sprite, GlobalPosition, null, Color.White, angle, origin, 1.0f, SpriteEffects.None, 0);

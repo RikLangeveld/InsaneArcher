@@ -27,7 +27,7 @@ namespace InsaneKillerArcher
 
             if (health <= 0)
             {
-                
+                InsaneKillerArcher.GameStateManager.SwitchTo("gameOver");
             }
 
         }
