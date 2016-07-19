@@ -71,7 +71,8 @@ namespace InsaneKillerArcher
             {
                 float distanceToCastle = (enemy.Position - castle.Position).Length();
                 if (distanceToCastle <= 300)
-                    enemy.EnemyIdle();
+                    if (enemy.Health > 0)
+                        enemy.EnemyIdle();
 
                 if (enemy.Health == 0)
                     enemy.EnemyDead();
@@ -134,7 +135,8 @@ namespace InsaneKillerArcher
             {
                 float distanceToCastle = (zeppelin.Position - castle.Position).Length();
                 if (distanceToCastle <= 400 || zeppelin.Position.X < 200)
-                    zeppelin.Idle();
+                    if (zeppelin.Health > 0)
+                        zeppelin.Idle();
 
                 if (zeppelin.Health == 0)
                     zeppelin.Dead();
