@@ -40,8 +40,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="spr_arrow.png">
-      <Name>spr_arrow</Name>
+    <Compile Include="spr_arrow%401x1.png">
+      <Name>spr_arrow%401x1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

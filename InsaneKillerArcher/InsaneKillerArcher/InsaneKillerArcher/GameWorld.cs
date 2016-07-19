@@ -120,7 +120,7 @@ namespace InsaneKillerArcher
                             Vector2 normalizedArrowDirection = new Vector2(random.Next(arrowDirectionXMin, arrowDirectionXMax), random.Next(arrowDirectionYMin, arrowDirectionYMax));
                             normalizedArrowDirection.Normalize();
 
-                            arrows.Add(new Arrow("spr_arrow", new Vector2(i, random.Next(arrowSpawnYMin, arrowSpawnYMax )), normalizedArrowDirection, 100));
+                            arrows.Add(new Arrow(new Vector2(i, random.Next(arrowSpawnYMin, arrowSpawnYMax )), normalizedArrowDirection, 100));
                         }
 
                         upgrade.IsActive = false;
