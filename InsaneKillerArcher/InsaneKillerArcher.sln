@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsaneKillerArcher", "InsaneKillerArcher\InsaneKillerArcher\InsaneKillerArcher.csproj", "{807E37E1-FBA4-4838-A8F5-76641A773D94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsaneKillerArcherContent", "InsaneKillerArcher\InsaneKillerArcherContent\InsaneKillerArcherContent.contentproj", "{F5522657-0E05-4ACB-928F-480B62D3D798}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameManagement", "..\..\Winsore\GameManagement\GameManagement.csproj", "{6CEB5F37-0BFA-4A0D-8DB7-B25ECD81CAAE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{807E37E1-FBA4-4838-A8F5-76641A773D94}.Debug|x86.ActiveCfg = Debug|x86
+		{807E37E1-FBA4-4838-A8F5-76641A773D94}.Debug|x86.Build.0 = Debug|x86
+		{807E37E1-FBA4-4838-A8F5-76641A773D94}.Release|x86.ActiveCfg = Release|x86
+		{807E37E1-FBA4-4838-A8F5-76641A773D94}.Release|x86.Build.0 = Release|x86
+		{F5522657-0E05-4ACB-928F-480B62D3D798}.Debug|x86.ActiveCfg = Debug|x86
+		{F5522657-0E05-4ACB-928F-480B62D3D798}.Release|x86.ActiveCfg = Release|x86
+		{6CEB5F37-0BFA-4A0D-8DB7-B25ECD81CAAE}.Debug|x86.ActiveCfg = Debug|x86
+		{6CEB5F37-0BFA-4A0D-8DB7-B25ECD81CAAE}.Debug|x86.Build.0 = Debug|x86
+		{6CEB5F37-0BFA-4A0D-8DB7-B25ECD81CAAE}.Release|x86.ActiveCfg = Release|x86
+		{6CEB5F37-0BFA-4A0D-8DB7-B25ECD81CAAE}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
