@@ -12,6 +12,12 @@ namespace InsaneKillerArcher
     class GameWorld : GameObjectList
     {
 
+        private Boolean canShoot = true; // checks if the player can shoot
+        private float shootCooldown = 500f; // cooldown time for shooting
+        private float shootCooldownTimer = 0f; // checks if cooldown is already done.
+
+        private float arrowSpeed = 300;
+
         private EnemySpawner enemySpawner;
         private Castle castle;
         private GameObjectList groundList;
@@ -62,6 +68,19 @@ namespace InsaneKillerArcher
                 //Als de enemy verwijderd moet worden, wordt de sprite onzichtbaar gemaakt. Hierna wordt deze verwijderd in de EnemySpawner class.
                 if (enemy.shouldDeleteEnemy())
                     enemy.Visible = false;
+
+            }
+
+            // cooldown voor het schieten staat hier.
+            if (!canShoot)
+            {
+                shootCooldownTimer += (float)gameTime.ElapsedGameTime.Milliseconds;
+
+                if (shootCooldownTimer >= shootCooldown)
+                {
+                    shootCooldownTimer = 0;
+                    canShoot = true;
+                }
             }
 
             base.Update(gameTime);
@@ -70,24 +89,31 @@ namespace InsaneKillerArcher
         public override void HandleInput(InputHelper inputHelper)
         {
             //Berekent de Angle van het wapen van de player met behulp van de positie van de muis.
-            float opposite = inputHelper.MousePosition.Y - player.Position.Y;
             float adjacent = inputHelper.MousePosition.X - player.Position.X;
+            float opposite = inputHelper.MousePosition.Y - player.Position.Y;
 
             //Heeft nog een restrictie nodig, max/min opposite en adjacent. Zodat de arm niet 360 graden kan draaien.
             player.Weapon.Angle = (float)Math.Atan2(opposite, adjacent);
 
-            if (inputHelper.MouseLeftButtonPressed())
+            if (inputHelper.MouseLeftButtonDown() && canShoot)
             {
-                arrow = new Arrow("spr_arrow", player.Position);
-                Add(arrow);
+                Shoot(adjacent, opposite);
             }
 
             base.HandleInput(inputHelper);
         }
 
-        public void Shoot()
+
+        public void Shoot(float playerPositionX, float playerPositionY)
         {
-            Arrow arrow = new Arrow("arrow_projectile", player.Position);
+            canShoot = false;
+
+            Vector2 direction = new Vector2(playerPositionX, playerPositionY);
+            Vector2 directionNormal = Vector2.Normalize(direction);
+
+            arrow = new Arrow("spr_arrow", player.Position, directionNormal, arrowSpeed);
+
+            Add(arrow);
         }
     }
 }
