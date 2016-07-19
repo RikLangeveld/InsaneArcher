@@ -17,6 +17,7 @@ namespace InsaneKillerArcher
         private float gravity = 2.0f;
         private float speedVermindering = 900;
         public float deleteTimer = 0.0f;
+        public float damage = 50f;
         
         public float Gravity { get { return gravity;} set { gravity = value; } }
 

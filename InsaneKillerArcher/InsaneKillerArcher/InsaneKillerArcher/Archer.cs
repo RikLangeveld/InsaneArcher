@@ -21,7 +21,7 @@ namespace InsaneKillerArcher
         private float shootDelay;
         private float timer;
 
-        public Archer()
+        public Archer(Vector2 newPos)
         {
             body = new SpriteGameObject("spr_archer");
             body.Position = position;
@@ -39,6 +39,8 @@ namespace InsaneKillerArcher
 
             shootDelay = 1.0f;
             timer = 0.0f;
+
+            position = newPos;
         }
 
         /// <summary>

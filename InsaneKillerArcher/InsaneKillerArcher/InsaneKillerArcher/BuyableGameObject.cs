@@ -11,7 +11,9 @@ namespace InsaneKillerArcher
     {
         OverheadArrows,
         RollingBoulder,
-        BoilingOil
+        BoilingOil,
+        CastleUpgrade,
+        ArcherUpgrade
     }
 
     class BuyableGameObject : SpriteGameObject
@@ -20,12 +22,19 @@ namespace InsaneKillerArcher
         float price;
         UpgradeType type;
         bool isActive = false;
+        int level = 0;
 
         public BuyableGameObject(float price, UpgradeType type, string spriteName, Vector2 position) : base(spriteName)
         {
             this.price = price;
             this.type = type;
             base.position = position;
+        }
+
+        public void upgradeLevel()
+        {
+            level++;
+            isActive = true;
         }
 
         public float Price
@@ -42,6 +51,11 @@ namespace InsaneKillerArcher
         {
             get { return isActive; }
             set { isActive = value; }
+        }
+
+        public int Level
+        {
+            get { return level; }
         }
     }
 }
