@@ -5,7 +5,7 @@ using System.Text;
 using InsaneKillerArcher;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-
+using Microsoft.Xna.Framework.Input;
 
 namespace InsaneKillerArcher
 {
@@ -94,6 +94,11 @@ namespace InsaneKillerArcher
             {
                 arrow = new Arrow("spr_arrow", player.Position);
                 Add(arrow);
+            }
+
+            if (inputHelper.KeyPressed(Keys.P))
+            {
+                InsaneKillerArcher.GameStateManager.SwitchTo("store");
             }
 
             base.HandleInput(inputHelper);
