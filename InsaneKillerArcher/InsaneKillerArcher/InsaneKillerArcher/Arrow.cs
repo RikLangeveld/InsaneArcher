@@ -7,7 +7,7 @@ using System.Text;
 
 namespace InsaneKillerArcher
 {
-    class Arrow : SpriteGameObject
+    class Arrow : Projectile
     {
         private bool active = true;
         public bool Active { get { return active; } set {active = value;} }
@@ -21,15 +21,28 @@ namespace InsaneKillerArcher
 
         private float angle = 0.0f;
 
-        public Arrow(string assetname, Vector2 position, Vector2 directionNormal, float speed) : base(assetname)
+        public Arrow(Vector2 position, Vector2 directionNormal, float speed) : base(0, "arrow", new Dictionary<string, string>(), new Dictionary<string, Animation>(), position, Vector2.Zero)
         {
+            addAnimation("spr_arrow@1x1", "shooting", true);
+            addAnimation("arrow_fade@5x1", "fade", true);
+
+            PlayAnimation("shooting");
+
             this.position = position;
             this.velocity = directionNormal * speed;
             origin = Center;
+
+            //animations
         }
 
-        public Arrow(string assetname, Vector2 position, Vector2 directionNormal, float speed, Vector2 richtingsVector) : base(assetname)
+        public Arrow(string assetname, Vector2 position, Vector2 directionNormal, float speed, Vector2 richtingsVector) : base(0, "arrow", new Dictionary<string, string>(), new Dictionary<string, Animation>(), position, Vector2.Zero)
         {
+
+            addAnimation("spr_arrow@1x1", "shooting", true);
+            addAnimation("arrow_fade@5x1", "fade", true);
+
+            PlayAnimation("shooting");
+
             this.position = position;
             richtingsVector = richtingsVector / speedVermindering;
             this.velocity = speed * richtingsVector;
