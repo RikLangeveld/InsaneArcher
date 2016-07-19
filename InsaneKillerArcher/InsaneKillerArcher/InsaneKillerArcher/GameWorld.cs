@@ -298,7 +298,7 @@ namespace InsaneKillerArcher
                 Vector2 direction = new Vector2(adjacent, opposite);
                 Vector2 directionNormal = Vector2.Normalize(direction);
 
-                Arrow arrow = new Arrow("spr_arrow", archer.Position, directionNormal, arrowSpeed, direction);
+                Arrow arrow = new Arrow(archer.Position, directionNormal, arrowSpeed, direction);
 
                 archerArrows.Add(arrow);
             }
