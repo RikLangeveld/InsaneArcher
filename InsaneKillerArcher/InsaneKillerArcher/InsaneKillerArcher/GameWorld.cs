@@ -25,6 +25,7 @@ namespace InsaneKillerArcher
         private SpriteGameObject ground;
         private Player player;
         private GameObjectList arrows;
+        private GameObjectList animatedProjectiles;
 
         private Random random = new Random(); // for all your Random needs!. :)
 
@@ -56,12 +57,14 @@ namespace InsaneKillerArcher
             zeppelinSpawner = new EnemySpawner(20f, EnemySpawner.EnemyType.Zeppelin);
 
             arrows = new GameObjectList();
+            animatedProjectiles = new GameObjectList();
 
             Add(castle);
             Add(enemySpawner);
             Add(zeppelinSpawner);
             Add(player);
             Add(arrows);
+            Add(animatedProjectiles);
         }
 
         public override void Update(GameTime gameTime)
@@ -114,14 +117,23 @@ namespace InsaneKillerArcher
                             Vector2 normalizedArrowDirection = new Vector2(random.Next(arrowDirectionXMin, arrowDirectionXMax), random.Next(arrowDirectionYMin, arrowDirectionYMax));
                             normalizedArrowDirection.Normalize();
 
-                            arrows.Add(new Arrow("spr_arrow", new Vector2(i, random.Next(arrowSpawnYMin, arrowSpawnYMax)), normalizedArrowDirection, 100));
+                            arrows.Add(new Arrow("spr_arrow", new Vector2(i, random.Next(arrowSpawnYMin, arrowSpawnYMax )), normalizedArrowDirection, 100));
                         }
 
                         upgrade.IsActive = false;
                     }
                     if(upgrade.Type == UpgradeType.RollingBoulder && upgrade.IsActive)
                     {
-                        // do stuff if Boulder is activated.
+                        int boulderStartPosX = 0;
+                        int boulderStartPosY = InsaneKillerArcher.Screen.Y - 20;
+
+                        int boulderVelX = 30;
+                        int boulderVelY = 0;
+
+                        animatedProjectiles.Add(new Boulder(new Vector2(boulderStartPosX, boulderStartPosY), new Vector2(boulderVelX, boulderVelY)));
+                        upgrade.IsActive = false;
+
+                        
                     }
                     if(upgrade.Type == UpgradeType.BoilingOil && upgrade.IsActive)
                     {

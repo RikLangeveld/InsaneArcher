@@ -35,6 +35,11 @@ namespace InsaneKillerArcher
             EnemyWalking();
         }
 
+        public void killEnemy()
+        {
+            health = 0;
+        }
+
         public void EnemyIdle()
         {
             velocity = Vector2.Zero;

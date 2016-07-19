@@ -49,6 +49,11 @@ namespace InsaneKillerArcher
                 overheadArrows.IsActive = true;
             }
 
+            if(inputHelper.KeyPressed(Keys.X))
+            {
+                rollingBoulder.IsActive = true;
+            }
+
             base.HandleInput(inputHelper);
         }
     }
