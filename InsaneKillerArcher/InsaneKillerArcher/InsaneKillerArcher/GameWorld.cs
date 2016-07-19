@@ -11,9 +11,7 @@ namespace InsaneKillerArcher
 {
     class GameWorld : GameObjectList
     {
-        private SpriteGameObject background;
-        private SpriteGameObject castle;
-
+        private Castle castle;
         private GameObjectList groundList;
         private SpriteGameObject ground;
         private Player player;
@@ -21,9 +19,13 @@ namespace InsaneKillerArcher
 
         public GameWorld()
         {
-            castle = new SpriteGameObject("spr_castle");
+            //laat bovenaan staan, is aleen de achtergrond.
+            Add(new SpriteGameObject("background"));
+            Add(new SpriteGameObject("spr_bar"));
+
+            castle = new Castle();
             groundList = new GameObjectList();
-            Add (new SpriteGameObject("background"));
+            
 
             for (int i = 0; i < InsaneKillerArcher.Screen.X/32; i++)
             {
@@ -32,15 +34,14 @@ namespace InsaneKillerArcher
                 groundList.Add(ground);
             }
 
-            castle.Position = new Vector2(0, InsaneKillerArcher.Screen.Y - castle.Height - 18);
 
             Add(groundList);
 
             player = new Player();
             player.Position = new Vector2(50, InsaneKillerArcher.Screen.Y - castle.Height - player.Body.Height + 35);
 
-            Add(castle);
             Add(player);
+            Add(castle);
         }
 
         public override void HandleInput(InputHelper inputHelper)
