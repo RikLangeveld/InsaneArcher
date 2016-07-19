@@ -12,16 +12,18 @@ namespace InsaneKillerArcher
     class GameWorld : GameObjectList
     {
         private SpriteGameObject castle;
+        private Player player;
 
         public GameWorld()
         {
             castle = new SpriteGameObject("spr_castle");
             castle.Position = new Vector2( 0 , InsaneKillerArcher.Screen.Y - castle.Height);
 
+            player = new Player();
+            player.Position = new Vector2(50, InsaneKillerArcher.Screen.Y - castle.Height - player.Body.Height);
+
             Add(castle);
+            Add(player);
         }
-
-        
-
     }
 }
