@@ -139,6 +139,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="spr_back.png">
+      <Name>spr_back</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="spr_bolder_25p%404x4.png">
       <Name>spr_bolder_25p%404x4</Name>
       <Importer>TextureImporter</Importer>
@@ -146,11 +153,47 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="spr_bolder_50p%404x4.png">
+      <Name>spr_bolder_50p%404x4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="spr_castle_medium_tower.png">
+      <Name>spr_castle_medium_tower</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="spr_castle_tower.png">
+      <Name>spr_castle_tower</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="spr_tower_short.png">
+      <Name>spr_tower_short</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="bolder_powerupp.png">
+      <Name>bolder_powerupp</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  <ItemGroup>
     <Compile Include="catepult%401x1.png">
       <Name>catepult%401x1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+</ItemGroup>
+<ItemGroup>
     <Compile Include="catepult_strip3%403x1.png">
       <Name>catepult_strip3%403x1</Name>
       <Importer>TextureImporter</Importer>

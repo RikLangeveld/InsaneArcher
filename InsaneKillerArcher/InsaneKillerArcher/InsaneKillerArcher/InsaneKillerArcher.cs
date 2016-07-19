@@ -51,6 +51,7 @@ namespace InsaneKillerArcher
             // Adds a playingstate to the game
             gameStateManager.AddGameState("playingState", new GameWorld());
             gameStateManager.AddGameState("store", new Store());
+            gameStateManager.AddGameState("gameOver", new GameOver());
 
             // sets the gamestate to playing
             gameStateManager.SwitchTo("playingState");

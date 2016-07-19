@@ -25,13 +25,11 @@ namespace InsaneKillerArcher
         private SpriteGameObject ground;
         private Player player;
         private Archer archer;
+        private GameObjectList archers;
         private GameObjectList arrows;
         private GameObjectList archerArrows;
         private GameObjectList animatedProjectiles;
         private AnimatedGameObject boulder;
-
-        private Catapult catapult;
-        private GameObjectList catapultBoulders;
 
         private Random random = new Random(); // for all your Random needs!. :)
 
@@ -56,10 +54,9 @@ namespace InsaneKillerArcher
             player = new Player();
             player.Position = new Vector2(50, InsaneKillerArcher.Screen.Y - castle.Height - player.Body.Height + 35);
 
-            archer = new Archer();
-            archer.Position = new Vector2(125, InsaneKillerArcher.Screen.Y - castle.Height + 85);
+            archers = new GameObjectList();
 
-            Add(archer);
+            Add(archers);
 
             enemySpawner = new EnemySpawner(2f, EnemySpawner.EnemyType.Enemy);
             zeppelinSpawner = new EnemySpawner(20f, EnemySpawner.EnemyType.Zeppelin);
@@ -67,10 +64,6 @@ namespace InsaneKillerArcher
             arrows = new GameObjectList();
             archerArrows = new GameObjectList();
             animatedProjectiles = new GameObjectList();
-            
-            catapult = new Catapult();
-            catapult.Position = new Vector2(200, InsaneKillerArcher.Screen.Y - castle.Height + 85);
-            catapultBoulders = new GameObjectList();
 
             Add(castle);
             Add(enemySpawner);
@@ -79,8 +72,6 @@ namespace InsaneKillerArcher
             Add(arrows);
             Add(archerArrows);
             Add(animatedProjectiles);
-            Add(catapult);
-            Add(catapultBoulders);
             Add(groundList);
 
         }
@@ -106,9 +97,10 @@ namespace InsaneKillerArcher
                 if (enemy.shouldDeleteEnemy())
                     enemy.Visible = false;
 
-                if (enemy.Attacking)
+                if (enemy.Attack)
                 {
                     castle.Health -= enemy.AttackDamage;
+                    enemy.Attack = false;
                 }
 
                 for (int i = arrows.Objects.Count-1; i > 0; i--)
@@ -124,14 +116,15 @@ namespace InsaneKillerArcher
                 {
                     if (enemy.CollidesWith(archerArrows.Objects[i] as Arrow))
                     {
+                        enemy.Health -= (archerArrows.Objects[i] as Arrow).damage;
                         archerArrows.Remove(archerArrows.Objects[i]);
-                        enemy.Health -= archer.Damage;
                     }
                 }
 
-                if (boulder != null && IsOutsideRoomRight(boulder.Position.X - boulder.Width * 2, boulder.Width))
+                if (boulder != null && IsOutsideRoomRight(boulder.Position.X, -30))
                 {
                     animatedProjectiles.Remove(boulder);
+                    boulder.Visible = false;
                 }
 
                 if (boulder != null && boulder.CollidesWith(enemy))
@@ -187,6 +180,36 @@ namespace InsaneKillerArcher
                 {
                     // do stuff if Boiling Oil is activated.
                 }
+                if (upgrade.Type == UpgradeType.CastleUpgrade && upgrade.IsActive)
+                {
+                    castle.CastleLevel++;
+
+                    castle.checkForUpgrades();
+
+                    upgrade.IsActive = false;
+                }
+
+                if (upgrade.Type == UpgradeType.ArcherUpgrade && upgrade.IsActive)
+                {
+                    int archerSpace = castle.checkForArcherSpace();
+                    castle.AskForArchers += upgrade.Level;
+                    if (archerSpace != 0 || castle.AskForArchers != 0)
+                    {
+                        for (int i = 0; i < castle.AskForArchers; i++)
+                        {
+                            archerSpace--;
+                            Vector2 newArcherPosition = castle.getNewArcherPosition();
+                            Console.WriteLine(newArcherPosition);
+                            if (newArcherPosition != Vector2.Zero)
+                            {
+                                archers.Add(new Archer(newArcherPosition));
+                                Console.WriteLine("archer added");
+                            }
+                        }
+                        upgrade.IsActive = false;
+                    }
+                }
+
             }
 
             foreach (Zeppelin zeppelin in zeppelinSpawner.Objects)
@@ -245,6 +268,7 @@ namespace InsaneKillerArcher
                         {
                             arrow.deleteTimer ++;
                         }
+                        
                     }
                 }
             }
@@ -326,30 +350,33 @@ namespace InsaneKillerArcher
                 //index of object with shortest length
                 int y = 50;
 
+                Vector2 archerPosition = Vector2.Zero;
+
                 for (int i = 0; i < enemySpawner.Objects.Count; i++)
                 {
-                    float length = (enemySpawner.Objects[i].Position - archer.Position).Length();
-                    if (length < x)
+                    foreach (Archer archer in archers.Objects)
                     {
-                        x = length;
-                        y = i;
+                        float length = (enemySpawner.Objects[i].Position - archer.Position).Length();
+                        if (length < x)
+                        {
+                            x = length;
+                            y = i;
+                            archerPosition = archer.Position;
+                        }
                     }
                 }
 
-                float adjacent = (enemySpawner.Objects[y].Position.X - archer.Position.X) * 1.2f;
-                float opposite = -(enemySpawner.Objects[y].Position.Y - archer.Position.Y);
+                if (archerPosition != Vector2.Zero)
+                {
+                    float adjacent = (enemySpawner.Objects[y].Position.X - archerPosition.X) * 1.2f;
+                    float opposite = -(enemySpawner.Objects[y].Position.Y - archerPosition.Y);
 
-                float newAdjacent = random.Next((int)(adjacent - 50), (int)(adjacent + 50));
-                float newOpposite = random.Next((int)(opposite - 50), (int)(opposite + 50));
+                    float newAdjacent = random.Next((int)(adjacent - 50), (int)(adjacent + 50));
+                    float newOpposite = random.Next((int)(opposite - 50), (int)(opposite + 50));
 
-                Vector2 direction = new Vector2(newAdjacent, newOpposite);
-                Vector2 directionNormal = Vector2.Normalize(direction);
+                    Vector2 direction = new Vector2(newAdjacent, newOpposite);
+                    Vector2 directionNormal = Vector2.Normalize(direction);
 
-                Arrow arrow = new Arrow(archer.Position, directionNormal, arrowSpeed, direction);
-
-                archerArrows.Add(arrow);
-            }
-        }
 
         public void CatapultShoot()
         {
