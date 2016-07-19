@@ -82,10 +82,13 @@ namespace InsaneKillerArcher
             foreach (Enemy enemy in enemySpawner.Objects)
             {
 
-                float distanceToCastle = (enemy.Position - castle.Position).Length();
-                if (distanceToCastle <= 300)
+                if(enemy.CollidesWith(castle))
+                {
                     if (enemy.Health > 0)
+                    {
                         enemy.EnemyIdle();
+                    }
+                }
 
                 if (enemy.Health <= 0)
                     enemy.EnemyDead();
@@ -93,6 +96,11 @@ namespace InsaneKillerArcher
                 //Als de enemy verwijderd moet worden, wordt de sprite onzichtbaar gemaakt. Hierna wordt deze verwijderd in de EnemySpawner class.
                 if (enemy.shouldDeleteEnemy())
                     enemy.Visible = false;
+
+                if (enemy.Attacking)
+                {
+                    castle.Health -= enemy.AttackDamage;
+                }
 
                 for (int i = arrows.Objects.Count-1; i > 0; i--)
                 {
