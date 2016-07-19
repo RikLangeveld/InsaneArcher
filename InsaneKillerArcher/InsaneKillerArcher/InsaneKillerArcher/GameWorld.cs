@@ -51,7 +51,7 @@ namespace InsaneKillerArcher
             player.Position = new Vector2(50, InsaneKillerArcher.Screen.Y - castle.Height - player.Body.Height + 35);
 
             enemySpawner = new EnemySpawner(2f, EnemySpawner.EnemyType.Enemy);
-            zeppelinSpawner = new EnemySpawner(12f, EnemySpawner.EnemyType.Zeppelin);
+            zeppelinSpawner = new EnemySpawner(20f, EnemySpawner.EnemyType.Zeppelin);
 
             arrows = new GameObjectList();
 
@@ -67,9 +67,9 @@ namespace InsaneKillerArcher
 
             foreach (Enemy enemy in enemySpawner.Objects)
             {
-                //Als de enemy in aanraking komt met het kasteel, gaat deze dood -> alleen voor debugging.
-                if (enemy.CollidesWith(castle))
-                    enemy.EnemyDead();
+                float distanceToCastle = (enemy.Position - castle.Position).Length();
+                if (distanceToCastle <= 300)
+                    enemy.EnemyIdle();
 
                 if (enemy.Health == 0)
                     enemy.EnemyDead();
@@ -105,9 +105,9 @@ namespace InsaneKillerArcher
 
             foreach (Zeppelin zeppelin in zeppelinSpawner.Objects)
             {
-                //Als de enemy in aanraking komt met het kasteel, gaat deze dood -> alleen voor debugging.
-                if (zeppelin.CollidesWith(castle))
-                    zeppelin.Dead();
+                float distanceToCastle = (zeppelin.Position - castle.Position).Length();
+                if (distanceToCastle <= 400 || zeppelin.Position.X < 200)
+                    zeppelin.Idle();
 
                 if (zeppelin.Health == 0)
                     zeppelin.Dead();
