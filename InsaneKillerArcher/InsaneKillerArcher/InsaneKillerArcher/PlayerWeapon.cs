@@ -23,7 +23,7 @@ namespace InsaneKillerArcher
         {
             spriteBatch.Draw(sprite.Sprite, GlobalPosition, null, Color.White, angle, origin, 1.0f, SpriteEffects.None, 0);
         }
-
+        
         public float Angle
         {
             get { return angle; }

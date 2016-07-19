@@ -13,7 +13,6 @@ namespace InsaneKillerArcher
 
         public Player()
         {
-
             body = new PlayerBody("spr_archer");
             weapon = new PlayerWeapon("spr_boog");
 

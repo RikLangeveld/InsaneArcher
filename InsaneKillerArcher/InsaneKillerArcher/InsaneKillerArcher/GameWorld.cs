@@ -51,20 +51,15 @@ namespace InsaneKillerArcher
 
         public override void Update(GameTime gameTime)
         {
-
             foreach(Enemy enemy in enemySpawner.Objects)
             {
+                //Als de enemy in aanraking komt met het kasteel, gaat deze dood -> alleen voor debugging.
                 if (enemy.CollidesWith(castle))
-                {
                     enemy.EnemyDead();
-                }
-                /*
+                
+                //Als de enemy verwijderd moet worden, wordt de sprite onzichtbaar gemaakt. Hierna wordt deze verwijderd in de EnemySpawner class.
                 if (enemy.shouldDeleteEnemy())
-                {
-                    Console.WriteLine("DOOD");
-                    enemySpawner.Remove(enemy);
-                }
-                */
+                    enemy.Visible = false;
             }
 
             base.Update(gameTime);
