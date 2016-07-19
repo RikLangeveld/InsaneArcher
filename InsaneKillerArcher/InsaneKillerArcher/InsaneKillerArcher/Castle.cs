@@ -8,9 +8,9 @@ namespace InsaneKillerArcher
 {
     class Castle : SpriteGameObject
     {
-        private int health = 100;
+        private float health = 1000;
 
-        public int Health
+        public float Health
         {
             get { return health; }
             set { health = value; }

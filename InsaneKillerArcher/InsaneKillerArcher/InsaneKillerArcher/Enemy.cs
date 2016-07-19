@@ -11,6 +11,8 @@ namespace InsaneKillerArcher
         private Vector2 startPosition = new Vector2(InsaneKillerArcher.Screen.X + 100, InsaneKillerArcher.Screen.Y - 20);
         private float movementSpeed = 100;
         private float health = 100f;
+        private float attackDamage = 35f;
+        private bool attacking = false;
 
         private Dictionary<string, Animation> currentAnimations = new Dictionary<string, Animation>();
         private Dictionary<string, string> spriteNames = new Dictionary<string, string>();
@@ -44,18 +46,21 @@ namespace InsaneKillerArcher
         {
             velocity = Vector2.Zero;
             this.PlayAnimation("fighting");
+            attacking = true;
         }
 
         public void EnemyWalking()
         {
             velocity = new Vector2(-movementSpeed, 0);
             this.PlayAnimation("walkingLeft");
+            attacking = false;
         }
 
         public void EnemyDead()
         {
             velocity = Vector2.Zero;
             this.PlayAnimation("dead");
+            attacking = false;
         }
 
         public bool shouldDeleteEnemy()
@@ -67,6 +72,16 @@ namespace InsaneKillerArcher
         {
             get { return health; }
             set { health = value; }
+        }
+
+        public float AttackDamage
+        {
+            get { return attackDamage; }
+        }
+
+        public bool Attacking
+        {
+            get { return attacking; }
         }
     }
 }
