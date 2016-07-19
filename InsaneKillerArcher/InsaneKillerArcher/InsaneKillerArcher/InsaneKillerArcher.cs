@@ -43,7 +43,6 @@ namespace InsaneKillerArcher
         /// </summary>
         protected override void LoadContent()
         {
-
             base.LoadContent();
 
             screen = new Point(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);

@@ -292,10 +292,28 @@ namespace InsaneKillerArcher
         {
             if (enemySpawner.Objects.Count > 0)
             {
-                float adjacent = (enemySpawner.Objects[0].Position.X - archer.Position.X);
-                float opposite = (enemySpawner.Objects[0].Position.Y - archer.Position.Y);
+                //Shortest length
+                float x = 99999;
+                //index of object with shortest length
+                int y = 50;
 
-                Vector2 direction = new Vector2(adjacent, opposite);
+                for (int i = 0; i < enemySpawner.Objects.Count; i++)
+                {
+                    float length = (enemySpawner.Objects[i].Position - archer.Position).Length();
+                    if (length < x)
+                    {
+                        x = length;
+                        y = i;
+                    }
+                }
+
+                float adjacent = (enemySpawner.Objects[y].Position.X - archer.Position.X) * 1.2f;
+                float opposite = -(enemySpawner.Objects[y].Position.Y - archer.Position.Y);
+
+                float newAdjacent = random.Next((int)(adjacent - 50), (int)(adjacent + 50));
+                float newOpposite = random.Next((int)(opposite - 50), (int)(opposite + 50));
+
+                Vector2 direction = new Vector2(newAdjacent, newOpposite);
                 Vector2 directionNormal = Vector2.Normalize(direction);
 
                 Arrow arrow = new Arrow(archer.Position, directionNormal, arrowSpeed, direction);
