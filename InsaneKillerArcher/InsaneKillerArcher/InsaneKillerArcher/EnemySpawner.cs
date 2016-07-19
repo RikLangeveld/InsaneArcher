@@ -21,9 +21,6 @@ namespace InsaneKillerArcher
         {
             currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            Console.WriteLine(currentTime);
-            Console.WriteLine(spawnTime);
-
             if (spawnTime < currentTime)
             {
                 Add(new Enemy());

@@ -9,7 +9,7 @@ namespace InsaneKillerArcher
     class Enemy : AnimatedGameObject
     {
 
-        private Vector2 startPosition = new Vector2(InsaneKillerArcher.Screen.X + 100, InsaneKillerArcher.Screen.Y);
+        private Vector2 startPosition = new Vector2(InsaneKillerArcher.Screen.X + 100, InsaneKillerArcher.Screen.Y - 20);
         private float movementSpeed = 100;
 
         private Dictionary<string, Animation> currentAnimations = new Dictionary<string, Animation>();
@@ -55,12 +55,9 @@ namespace InsaneKillerArcher
             this.PlayAnimation("dead");
         }
 
-        public void shouldDeleteEnemy()
+        public bool shouldDeleteEnemy()
         {
-            if(currentAnimations["dead"].AnimationEnded)
-            {
-                visible = false;
-            }
+            return currentAnimations["dead"].AnimationEnded;
         }
     }
 }

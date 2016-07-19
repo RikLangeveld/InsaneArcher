@@ -59,7 +59,11 @@ namespace InsaneKillerArcher
                     enemy.EnemyDead();
                 }
 
-                enemy.shouldDeleteEnemy();
+                if (enemy.shouldDeleteEnemy())
+                {
+                    Console.WriteLine("DOOD");
+                    enemySpawner.Remove(enemy);
+                }
             }
 
             base.Update(gameTime);
