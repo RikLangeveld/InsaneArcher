@@ -86,6 +86,21 @@ namespace InsaneKillerArcher
                         enemy.Health -= 50;
                     }
                 }
+
+                foreach(BuyableGameObject upgrade in Store.upgrades)
+                {
+                    if(upgrade.Type == UpgradeType.OverheadArrows && upgrade.IsActive)
+                    {
+                        int interval = 100;
+
+                        for (int i=100; i<InsaneKillerArcher.Screen.X - 100; i += interval)
+                        {
+                            arrows.Add(new Arrow("spr_arrow", new Vector2(i, 0)));
+                        }
+
+                        upgrade.IsActive = false;
+                    }
+                }
             }
 
             foreach (Zeppelin zeppelin in zeppelinSpawner.Objects)

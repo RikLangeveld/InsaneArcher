@@ -18,11 +18,28 @@ namespace InsaneKillerArcher
 
         float price;
         UpgradeType type;
+        bool isActive = false;
 
         public BuyableGameObject(float price, UpgradeType type) : base("spr_arrow")
         {
             this.price = price;
             this.type = type;
+        }
+
+        public float Price
+        {
+            get { return price; }
+        }
+
+        public UpgradeType Type
+        {
+            get { return type; }
+        }
+
+        public bool IsActive
+        {
+            get { return isActive; }
+            set { isActive = value; }
         }
     }
 }
