@@ -97,9 +97,10 @@ namespace InsaneKillerArcher
                 if (enemy.shouldDeleteEnemy())
                     enemy.Visible = false;
 
-                if (enemy.Attacking)
+                if (enemy.Attack)
                 {
                     castle.Health -= enemy.AttackDamage;
+                    enemy.Attack = false;
                 }
 
                 for (int i = arrows.Objects.Count-1; i > 0; i--)

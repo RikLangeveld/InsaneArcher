@@ -12,7 +12,9 @@ namespace InsaneKillerArcher
         private float movementSpeed = 100;
         private float health = 100f;
         private float attackDamage = 35f;
+        private float attackTimer = 0.5f;
         private bool attacking = false;
+        private bool attack = false;
 
         private Dictionary<string, Animation> currentAnimations = new Dictionary<string, Animation>();
         private Dictionary<string, string> spriteNames = new Dictionary<string, string>();
@@ -35,6 +37,20 @@ namespace InsaneKillerArcher
             position = startPosition;
 
             EnemyWalking();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            if (attacking)
+                attackTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (attackTimer <= 0)
+            {
+                attack = true;
+                attackTimer = 0.5f;
+            }
+
+            base.Update(gameTime);
         }
 
         public void killEnemy()
@@ -79,9 +95,10 @@ namespace InsaneKillerArcher
             get { return attackDamage; }
         }
 
-        public bool Attacking
+        public bool Attack
         {
-            get { return attacking; }
+            get { return attack; }
+            set { attack = value; }
         }
     }
 }
