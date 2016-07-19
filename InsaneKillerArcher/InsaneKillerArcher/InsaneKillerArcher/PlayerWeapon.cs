@@ -13,6 +13,7 @@ namespace InsaneKillerArcher
 
         public PlayerWeapon(string assetname) : base(assetname)
         {
+            origin = new Vector2(Width / 2, Height / 2);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

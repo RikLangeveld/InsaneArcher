@@ -45,13 +45,9 @@ namespace InsaneKillerArcher
 
         public override void HandleInput(InputHelper inputHelper)
         {
-            double opposite = inputHelper.MousePosition.Y - player.Position.Y;
-            double adjacent = inputHelper.MousePosition.X - player.Position.X;
-            if (adjacent > 1 && opposite < 22) 
-                player.Weapon.Angle = (float)Math.Atan2(opposite, adjacent);
-
-            Console.WriteLine("adjacent: " + adjacent);
-            Console.WriteLine("Weapon Angle: " + player.Weapon.Angle);
+            float opposite = inputHelper.MousePosition.Y - player.Position.Y;
+            float adjacent = inputHelper.MousePosition.X - player.Position.X;
+            player.Weapon.Angle = (float)Math.Atan2(opposite, adjacent);
 
             base.HandleInput(inputHelper);
         }
