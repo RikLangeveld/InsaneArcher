@@ -70,5 +70,11 @@ namespace InsaneKillerArcher
             get { return angle; }
             set { angle = value; }
         }
+
+        public float Damage
+        {
+            get { return damage; }
+            set { damage = value; }
+        }
     }
 }

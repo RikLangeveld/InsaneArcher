@@ -99,7 +99,16 @@ namespace InsaneKillerArcher
                     if (enemy.CollidesWith(arrows.Objects[i] as Arrow))
                     {
                         arrows.Remove(arrows.Objects[i]);
-                        enemy.Health -= 50;
+                        enemy.Health -= player.Weapon.Damage;
+                    }
+                }
+
+                for (int i = archerArrows.Objects.Count - 1; i > 0; i--)
+                {
+                    if (enemy.CollidesWith(archerArrows.Objects[i] as Arrow))
+                    {
+                        archerArrows.Remove(archerArrows.Objects[i]);
+                        enemy.Health -= archer.Damage;
                     }
                 }
 
@@ -170,7 +179,7 @@ namespace InsaneKillerArcher
                     if (zeppelin.Health > 0)
                         zeppelin.Idle();
 
-                if (zeppelin.Health == 0)
+                if (zeppelin.Health <= 0)
                     zeppelin.Dead();
 
                 for (int i = arrows.Objects.Count - 1; i > 0; i--)
@@ -178,7 +187,16 @@ namespace InsaneKillerArcher
                     if (zeppelin.CollidesWith(arrows.Objects[i] as Arrow))
                     {
                         arrows.Remove(arrows.Objects[i]);
-                        zeppelin.Health -= 50;
+                        zeppelin.Health -= player.Weapon.Damage;
+                    }
+                }
+
+                for (int i = archerArrows.Objects.Count - 1; i > 0; i--)
+                {
+                    if (zeppelin.CollidesWith(archerArrows.Objects[i] as Arrow))
+                    {
+                        archerArrows.Remove(archerArrows.Objects[i]);
+                        zeppelin.Health -= archer.Damage;
                     }
                 }
             }
