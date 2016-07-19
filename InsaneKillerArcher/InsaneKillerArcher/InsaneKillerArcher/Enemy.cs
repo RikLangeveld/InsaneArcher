@@ -8,18 +8,15 @@ namespace InsaneKillerArcher
 {
     class Enemy : AnimatedGameObject
     {
-
-        private float health = 100f;
-
         private Vector2 startPosition = new Vector2(InsaneKillerArcher.Screen.X + 100, InsaneKillerArcher.Screen.Y - 20);
         private float movementSpeed = 100;
+        private float health = 100f;
 
         private Dictionary<string, Animation> currentAnimations = new Dictionary<string, Animation>();
         private Dictionary<string, string> spriteNames = new Dictionary<string, string>();
 
         public Enemy() : base(0, "Enemy")
         {
-
             spriteNames.Add("walkingLeft", "spr_enemy_strip2@2x1");
             spriteNames.Add("dead", "spr_enemy_dead_strip5@5x1");
             spriteNames.Add("fighting", "spr_enemy_fight_strip2@2x1");
@@ -36,7 +33,6 @@ namespace InsaneKillerArcher
             position = startPosition;
 
             EnemyWalking();
-
         }
 
         public void EnemyIdle()

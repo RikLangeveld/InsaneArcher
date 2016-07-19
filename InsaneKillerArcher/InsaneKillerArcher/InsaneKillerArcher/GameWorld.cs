@@ -64,20 +64,20 @@ namespace InsaneKillerArcher
                 if (enemy.shouldDeleteEnemy())
                     enemy.Visible = false;
 
-                foreach (Arrow arrow in gameObjects)
-                {
-                    if (enemy.CollidesWith(arrow))
+                for (int i = gameObjects.Count - 1; i > 0; i--)
+                    if (typeof(Arrow).Equals(gameObjects[i]))
                     {
-                        enemy.Health -= 50;
-                        arrow.Visible = false;
+                        if ((gameObjects[i] as Arrow).CollidesWith(enemy))
+                        {
+                            enemy.Health -= 50;
+                            arrow.Visible = false;
+                        }
+
+                        if (!gameObjects[i].Visible)
+                            Remove(gameObjects[i]);
                     }
-                }
-
-                for (int i = gameObjects.Count-1; i > 0; i--)
-                    if (typeof(Arrow).Equals(gameObjects[i]) && !gameObjects[i].Visible)
-                        Remove(gameObjects[i]);
             }
-
+           
             base.Update(gameTime);
         }
 
