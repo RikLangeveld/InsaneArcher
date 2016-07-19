@@ -62,6 +62,8 @@
     <Compile Include="Boulder.cs" />
     <Compile Include="BuyableGameObject.cs" />
     <Compile Include="Castle.cs" />
+    <Compile Include="Catapult.cs" />
+    <Compile Include="CatapultBoulder.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemySpawner.cs" />
     <Compile Include="GameOver.cs" />
@@ -92,7 +94,6 @@
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--
