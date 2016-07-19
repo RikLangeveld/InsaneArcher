@@ -249,6 +249,19 @@ namespace InsaneKillerArcher
                 }
             }
 
+            foreach (CatapultBoulder boulder in catapultBoulders.Objects)
+            {
+                foreach (SpriteGameObject ground in groundList.Objects)
+                {
+                    
+                    if (ground.CollidesWith(boulder) && !boulder.FirstBounce)
+                    {
+                        boulder.FirstBounce = true;
+                        boulder.Bounce();
+                    }
+                }
+            }
+
             // cooldown voor het schieten staat hier.
             if (!canShoot)
             {
@@ -342,6 +355,7 @@ namespace InsaneKillerArcher
         {
             //Shortest length
             float x = 99999;
+
             //index of object with shortest length
             int y = 50;
 

@@ -9,6 +9,7 @@ namespace InsaneKillerArcher
 {
     class Boulder : Projectile
     {
+
         public Boulder(Vector2 position, Vector2 velocity) : base(0, "boulder", new Dictionary<string, string>(), new Dictionary<string, Animation>(), position, velocity)
         {
 
