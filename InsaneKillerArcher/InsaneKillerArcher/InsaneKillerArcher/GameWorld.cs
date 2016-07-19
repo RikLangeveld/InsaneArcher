@@ -207,13 +207,28 @@ namespace InsaneKillerArcher
                 {
                     arrow.Visible = false;
                 }
+
                 foreach (SpriteGameObject ground in groundList.Objects)
                 {
-                    if (arrow.CollidesWith(ground) && arrow.Active)
+                    if (arrow.CollidesWith(ground))
                     {
-                        arrow.Velocity = Vector2.Zero;
-                        arrow.Gravity = 0;
-                        arrow.Active = false;
+                        if (arrow.Active)
+                        {
+
+                            arrow.Velocity = Vector2.Zero;
+                            arrow.Gravity = 0;
+
+                            arrow.Active = false;
+                        }
+                        else if (arrow.deleteTimer > 120)
+                        {
+                            arrow.Visible = false;
+                        }
+                        else
+                        {
+                            arrow.deleteTimer ++;
+                        }
+                        
                     }
                 }
             }
@@ -268,7 +283,7 @@ namespace InsaneKillerArcher
             Vector2 direction = new Vector2(playerPositionX, playerPositionY);
             Vector2 directionNormal = Vector2.Normalize(direction);
 
-            Arrow arrow = new Arrow("spr_arrow", player.Position, directionNormal, arrowSpeed, direction);
+            Arrow arrow = new Arrow( player.Position, directionNormal, arrowSpeed, direction);
 
             arrows.Add(arrow);
         }

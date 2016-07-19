@@ -40,8 +40,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="spr_arrow%401x1.png">
-      <Name>spr_arrow%401x1</Name>
+    <Compile Include="spr_arrow.png">
+      <Name>spr_arrow</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -120,13 +120,6 @@
   <ItemGroup>
     <Compile Include="boulder%404x4.png">
       <Name>boulder%404x4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="arrow_fade%405x1.png">
-      <Name>arrow_fade%405x1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

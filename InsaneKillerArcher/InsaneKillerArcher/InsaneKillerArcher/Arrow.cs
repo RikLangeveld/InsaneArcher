@@ -7,46 +7,37 @@ using System.Text;
 
 namespace InsaneKillerArcher
 {
-    class Arrow : Projectile
-    {
+    class Arrow : SpriteGameObject
+    { 
+
         private bool active = true;
         public bool Active { get { return active; } set {active = value;} }
 
         //tweak values
         private float gravity = 2.0f;
         private float speedVermindering = 900;
+        public float deleteTimer = 0.0f;
         
         public float Gravity { get { return gravity;} set { gravity = value; } }
 
 
         private float angle = 0.0f;
 
-        public Arrow(Vector2 position, Vector2 directionNormal, float speed) : base(0, "arrow", new Dictionary<string, string>(), new Dictionary<string, Animation>(), position, Vector2.Zero)
+        public Arrow(Vector2 position, Vector2 directionNormal, float speed) : base("spr_arrow")
         {
-            addAnimation("spr_arrow@1x1", "shooting", true);
-            addAnimation("arrow_fade@5x1", "fade", true);
 
-            PlayAnimation("shooting");
-
+            origin = Center;
             this.position = position;
             this.velocity = directionNormal * speed;
-            origin = Center;
 
-            //animations
         }
 
-        public Arrow(string assetname, Vector2 position, Vector2 directionNormal, float speed, Vector2 richtingsVector) : base(0, "arrow", new Dictionary<string, string>(), new Dictionary<string, Animation>(), position, Vector2.Zero)
+        public Arrow(Vector2 position, Vector2 directionNormal, float speed, Vector2 richtingsVector) : base("spr_arrow")
         {
-
-            addAnimation("spr_arrow@1x1", "shooting", true);
-            addAnimation("arrow_fade@5x1", "fade", true);
-
-            PlayAnimation("shooting");
 
             this.position = position;
             richtingsVector = richtingsVector / speedVermindering;
             this.velocity = speed * richtingsVector;
-            Console.WriteLine(richtingsVector);
             origin = Center;
         }
 
@@ -66,7 +57,15 @@ namespace InsaneKillerArcher
         /// </summary>
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite.Sprite, GlobalPosition, null, Color.White, angle, origin, 1.0f, SpriteEffects.None, 0);
+            if (deleteTimer <= 20)
+            {
+                spriteBatch.Draw(sprite.Sprite, GlobalPosition, null, Color.White, angle, origin, 1.0f, SpriteEffects.None, 0);
+            }
+        }
+
+        public void arrowDeactive()
+        {
+            velocity = Vector2.Zero;
         }
     }
 }
