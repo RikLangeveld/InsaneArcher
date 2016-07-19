@@ -112,7 +112,7 @@ namespace InsaneKillerArcher
                     }
                 }
 
-                if (boulder != null && IsOutsideRoomRight(boulder.Position.X, boulder.Width))
+                if (boulder != null && IsOutsideRoomRight(boulder.Position.X - boulder.Width * 2, boulder.Width))
                 {
                     animatedProjectiles.Remove(boulder);
                 }
@@ -156,7 +156,7 @@ namespace InsaneKillerArcher
                 if (upgrade.Type == UpgradeType.RollingBoulder && upgrade.IsActive)
                 {
                     int boulderStartPosX = 0;
-                    int boulderStartPosY = InsaneKillerArcher.Screen.Y - 20;
+                    int boulderStartPosY = InsaneKillerArcher.Screen.Y - 15;
 
                     int boulderVelX = 100;
                     int boulderVelY = 0;
