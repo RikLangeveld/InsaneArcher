@@ -19,13 +19,9 @@ namespace InsaneKillerArcher
         public Store()
         {
 
-            overheadArrows = new BuyableGameObject(100f, UpgradeType.OverheadArrows);
-            rollingBoulder = new BuyableGameObject(100f, UpgradeType.RollingBoulder);
-            boilingOil = new BuyableGameObject(100f, UpgradeType.BoilingOil);
-
-            overheadArrows.Position = new Vector2(30, 30);
-            rollingBoulder.Position = new Vector2(30, 60);
-            boilingOil.Position = new Vector2(30, 90);
+            overheadArrows = new BuyableGameObject(100f, UpgradeType.OverheadArrows, "arrow_raining", new Vector2(30, 30));
+            rollingBoulder = new BuyableGameObject(100f, UpgradeType.RollingBoulder, "spr_keuze_mage", new Vector2(30, 235));
+            boilingOil = new BuyableGameObject(100f, UpgradeType.BoilingOil, "spr_keuze_babarian", new Vector2(30, 440));
 
             upgrades.Add(overheadArrows);
             upgrades.Add(rollingBoulder);
@@ -43,18 +39,39 @@ namespace InsaneKillerArcher
             {
                 InsaneKillerArcher.GameStateManager.SwitchTo("playingState");
             }
-
-            if(inputHelper.KeyPressed(Keys.Z))
-            {
+            /*
+            if(mouseOver(inputHelper.MousePosition, overheadArrows) && inputHelper.MouseLeftButtonPressed()) {
                 overheadArrows.IsActive = true;
             }
 
-            if(inputHelper.KeyPressed(Keys.X))
+            if (mouseOver(inputHelper.MousePosition, rollingBoulder) && inputHelper.MouseLeftButtonPressed())
             {
                 rollingBoulder.IsActive = true;
             }
 
+            if (mouseOver(inputHelper.MousePosition, boilingOil) && inputHelper.MouseLeftButtonPressed())
+            {
+                boilingOil.IsActive = true;
+            }
+            */
+
+            foreach(var u in upgrades)
+            {
+                if(mouseOver(inputHelper.MousePosition, u) && inputHelper.MouseLeftButtonPressed())
+                {
+                    u.IsActive = true;
+                }
+            }
+
             base.HandleInput(inputHelper);
+        }
+
+        public bool mouseOver(Vector2 mousePosition, SpriteGameObject icon)
+        {
+            return mousePosition.X >= icon.Position.X
+                && mousePosition.X <= icon.Position.X + icon.Width
+                && mousePosition.Y >= icon.Position.Y
+                && mousePosition.Y <= icon.Position.Y + icon.Height;
         }
     }
 }
