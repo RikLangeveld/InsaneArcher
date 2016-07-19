@@ -24,7 +24,9 @@ namespace InsaneKillerArcher
         private GameObjectList groundList;
         private SpriteGameObject ground;
         private Player player;
+        private Archer archer;
         private GameObjectList arrows;
+        private GameObjectList archerArrows;
 
         private Random random = new Random(); // for all your Random needs!. :)
 
@@ -45,22 +47,27 @@ namespace InsaneKillerArcher
                 groundList.Add(ground);
             }
 
-
             
-
             player = new Player();
             player.Position = new Vector2(50, InsaneKillerArcher.Screen.Y - castle.Height - player.Body.Height + 35);
+
+            archer = new Archer();
+            archer.Position = new Vector2(125, InsaneKillerArcher.Screen.Y - castle.Height + 85);
+
+            Add(archer);
 
             enemySpawner = new EnemySpawner(2f, EnemySpawner.EnemyType.Enemy);
             zeppelinSpawner = new EnemySpawner(20f, EnemySpawner.EnemyType.Zeppelin);
 
             arrows = new GameObjectList();
+            archerArrows = new GameObjectList();
 
             Add(castle);
             Add(enemySpawner);
             Add(zeppelinSpawner);
             Add(player);
             Add(arrows);
+            Add(archerArrows);
             Add(groundList);
         }
 
@@ -184,8 +191,7 @@ namespace InsaneKillerArcher
             for (int i = gameObjects.Count - 1; i > 0; i--)
                 if (!gameObjects[i].Visible)
                     Remove(gameObjects[i]);
-
-
+            
             base.Update(gameTime);
         }
 
@@ -222,6 +228,22 @@ namespace InsaneKillerArcher
             Arrow arrow = new Arrow("spr_arrow", player.Position, directionNormal, arrowSpeed, direction);
 
             arrows.Add(arrow);
+        }
+
+        public void ArcherShoot()
+        {
+            if (enemySpawner.Objects.Count > 0)
+            {
+                float adjacent = (enemySpawner.Objects[0].Position.X - archer.Position.X);
+                float opposite = (enemySpawner.Objects[0].Position.Y - archer.Position.Y);
+
+                Vector2 direction = new Vector2(adjacent, opposite);
+                Vector2 directionNormal = Vector2.Normalize(direction);
+
+                Arrow arrow = new Arrow("spr_arrow", archer.Position, directionNormal, arrowSpeed, direction);
+
+                archerArrows.Add(arrow);
+            }
         }
 
         /// <summary>
@@ -281,6 +303,11 @@ namespace InsaneKillerArcher
                 return true;
             else
                 return false;
+        }
+
+        public EnemySpawner EnemySpawner
+        {
+            get { return enemySpawner; }
         }
     }
 }
