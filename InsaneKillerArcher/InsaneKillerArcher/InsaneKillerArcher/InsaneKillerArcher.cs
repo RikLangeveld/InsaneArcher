@@ -51,6 +51,7 @@ namespace InsaneKillerArcher
             // TODO: use this.Content to load your game content here
             // Adds a playingstate to the game
             gameStateManager.AddGameState("playingState", new GameWorld());
+            gameStateManager.AddGameState("gameOver", new GameOver());
 
             // sets the gamestate to playing
             gameStateManager.SwitchTo("playingState");
@@ -60,7 +61,7 @@ namespace InsaneKillerArcher
         {
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null,
-                Matrix.CreateScale(SCREEN_SIZE.X / 1920, SCREEN_SIZE.Y / 1080, 1));
+            Matrix.CreateScale(SCREEN_SIZE.X / 1920, SCREEN_SIZE.Y / 1080, 1));
             gameStateManager.Draw(gameTime, spriteBatch);
             spriteBatch.End();
         }
