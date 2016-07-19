@@ -26,7 +26,6 @@ namespace InsaneKillerArcher
         private Player player;
         private GameObjectList arrows;
 
-
         public GameWorld()
         {
             //laat bovenaan staan, is aleen de achtergrond.
@@ -45,7 +44,7 @@ namespace InsaneKillerArcher
             }
 
 
-            Add(groundList);
+            
 
             player = new Player();
             player.Position = new Vector2(50, InsaneKillerArcher.Screen.Y - castle.Height - player.Body.Height + 35);
@@ -60,6 +59,7 @@ namespace InsaneKillerArcher
             Add(zeppelinSpawner);
             Add(player);
             Add(arrows);
+            Add(groundList);
         }
 
         public override void Update(GameTime gameTime)
@@ -103,6 +103,23 @@ namespace InsaneKillerArcher
                     {
                         zeppelin.Health -= 50;
                         arrow.Visible = false;
+                    }
+                }
+            }
+
+            foreach (Arrow arrow in arrows.Objects)
+            {
+                if (IsOutsideRoomLeft(arrow.Position.X, arrow.Width) || IsOutsideRoomRight(arrow.Position.X, arrow.Width))
+                {
+                    arrow.Visible = false;
+                }
+                foreach (SpriteGameObject ground in groundList.Objects)
+                {
+                    if (arrow.CollidesWith(ground) && arrow.Active)
+                    {
+                        arrow.Velocity = Vector2.Zero;
+                        arrow.Gravity = 0;
+                        arrow.Active = false;
                     }
                 }
             }
@@ -158,9 +175,68 @@ namespace InsaneKillerArcher
             Vector2 direction = new Vector2(playerPositionX, playerPositionY);
             Vector2 directionNormal = Vector2.Normalize(direction);
 
-            Arrow arrow = new Arrow("spr_arrow", player.Position, directionNormal, arrowSpeed);
+            Arrow arrow = new Arrow("spr_arrow", player.Position, directionNormal, arrowSpeed, direction);
 
             arrows.Add(arrow);
+        }
+
+        /// <summary>
+        /// A function to check if a spriteGameobject is Outside The room
+        /// </summary>
+        /// <param name="position">The position of the game object</param>
+        /// <param name="width"> The width of the SpriteObject</param>
+        /// <param name="height">The heigth of the SpriteObject</param>
+        /// <returns></returns>
+        public bool IsOutsideRoom(Vector2 position, int width, int height)
+        {
+
+            if (position.X > 0 && position.X + width < InsaneKillerArcher.Screen.X &&
+                position.Y > 0 && position.Y + height < InsaneKillerArcher.Screen.Y)
+                return false;
+            else
+                return true;
+        }
+
+        /// <summary>
+        /// Used to check if a object is out of the room on the right side
+        /// </summary>
+        /// <param name="position">position of the object</param>
+        /// <param name="width">width of the object</param>
+        /// <returns></returns>
+        public bool IsOutsideRoomRight(float positionX, int width)
+        {
+            if (positionX + width / 2 > 1920)
+                return true;
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// Used to check if a object is out of the room on the left side
+        /// </summary>
+        /// <param name="position">position of the object</param>
+        /// <param name="width">width of the object</param>
+        /// <returns></returns>
+        public bool IsOutsideRoomLeft(float positionX, int width)
+        {
+            if (positionX - width / 2 < 0)
+                return true;
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// Used to check if a object is below the view.
+        /// </summary>
+        /// <param name="position">position of the object</param>
+        /// <param name="width">width of the object</param>
+        /// <returns></returns>
+        public bool IsOutsideRoomBelow(float positionY, int height)
+        {
+            if (positionY > 1080)
+                return true;
+            else
+                return false;
         }
     }
 }

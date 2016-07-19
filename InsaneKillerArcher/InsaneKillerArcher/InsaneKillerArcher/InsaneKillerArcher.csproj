@@ -72,6 +72,7 @@
     <Compile Include="InsaneKillerArcher.cs" />
     <Compile Include="SpecialAttack.cs" />
     <Compile Include="Store.cs" />
+    <Compile Include="Zeppelin.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
