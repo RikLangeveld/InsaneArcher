@@ -183,11 +183,17 @@
   <ItemGroup>
     <Compile Include="bolder_powerupp.png">
       <Name>bolder_powerupp</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  <ItemGroup>
     <Compile Include="catepult%401x1.png">
       <Name>catepult%401x1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+</ItemGroup>
+<ItemGroup>
     <Compile Include="catepult_strip3%403x1.png">
       <Name>catepult_strip3%403x1</Name>
       <Importer>TextureImporter</Importer>
