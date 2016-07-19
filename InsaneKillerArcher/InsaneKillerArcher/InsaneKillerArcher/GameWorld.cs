@@ -74,12 +74,13 @@ namespace InsaneKillerArcher
 
             foreach (Enemy enemy in enemySpawner.Objects)
             {
+
                 float distanceToCastle = (enemy.Position - castle.Position).Length();
                 if (distanceToCastle <= 300)
                     if (enemy.Health > 0)
                         enemy.EnemyIdle();
 
-                if (enemy.Health == 0)
+                if (enemy.Health <= 0)
                     enemy.EnemyDead();
 
                 //Als de enemy verwijderd moet worden, wordt de sprite onzichtbaar gemaakt. Hierna wordt deze verwijderd in de EnemySpawner class.
@@ -95,58 +96,63 @@ namespace InsaneKillerArcher
                     }
                 }
 
-                foreach(BuyableGameObject upgrade in Store.upgrades)
-                {
-                    if(upgrade.Type == UpgradeType.OverheadArrows && upgrade.IsActive)
-                    {
-                        // Tweak values;
-                        int intervalXMin = 50;
-                        int intervalXMax = 75;
-
-                        int arrowDirectionXMin = 1;
-                        int arrowDirectionXMax = 2;
-
-                        int arrowDirectionYMin = 8;
-                        int arrowDirectionYMax = 12;
-
-                        int arrowSpawnYMin = -25;
-                        int arrowSpawnYMax = -5;
-
-
-                        int interval = random.Next(intervalXMin, intervalXMax);
-
-                        for (int i=100; i<InsaneKillerArcher.Screen.X - 100; i += interval)
-                        {
-                            Vector2 normalizedArrowDirection = new Vector2(random.Next(arrowDirectionXMin, arrowDirectionXMax), random.Next(arrowDirectionYMin, arrowDirectionYMax));
-                            normalizedArrowDirection.Normalize();
-
-                            arrows.Add(new Arrow(new Vector2(i, random.Next(arrowSpawnYMin, arrowSpawnYMax )), normalizedArrowDirection, 100));
-                        }
-
-                        upgrade.IsActive = false;
-                    }
-                    if (upgrade.Type == UpgradeType.RollingBoulder && upgrade.IsActive)
-                    {
-                        int boulderStartPosX = 0;
-                        int boulderStartPosY = InsaneKillerArcher.Screen.Y - 20;
-
-                        int boulderVelX = 30;
-                        int boulderVelY = 0;
-
-                        boulder = new Boulder(new Vector2(boulderStartPosX, boulderStartPosY), new Vector2(boulderVelX, boulderVelY));
-
-                        animatedProjectiles.Add(boulder);
-                        upgrade.IsActive = false;
-                    }
-                    if (upgrade.Type == UpgradeType.BoilingOil && upgrade.IsActive)
-                    {
-                        // do stuff if Boiling Oil is activated.
-                    }
-                }
-
                 if (boulder != null && IsOutsideRoomRight(boulder.Position.X, boulder.Width))
                 {
                     animatedProjectiles.Remove(boulder);
+                }
+
+                if (boulder != null && boulder.CollidesWith(enemy))
+                {
+                    enemy.Health = 0;
+                }
+            }
+
+            foreach (BuyableGameObject upgrade in Store.upgrades)
+            {
+                if (upgrade.Type == UpgradeType.OverheadArrows && upgrade.IsActive)
+                {
+                    // Tweak values;
+                    int intervalXMin = 50;
+                    int intervalXMax = 75;
+
+                    int arrowDirectionXMin = 1;
+                    int arrowDirectionXMax = 2;
+
+                    int arrowDirectionYMin = 8;
+                    int arrowDirectionYMax = 12;
+
+                    int arrowSpawnYMin = -25;
+                    int arrowSpawnYMax = -5;
+
+
+                    int interval = random.Next(intervalXMin, intervalXMax);
+
+                    for (int i = 100; i < InsaneKillerArcher.Screen.X - 100; i += interval)
+                    {
+                        Vector2 normalizedArrowDirection = new Vector2(random.Next(arrowDirectionXMin, arrowDirectionXMax), random.Next(arrowDirectionYMin, arrowDirectionYMax));
+                        normalizedArrowDirection.Normalize();
+
+                        arrows.Add(new Arrow(new Vector2(i, random.Next(arrowSpawnYMin, arrowSpawnYMax)), normalizedArrowDirection, 100));
+                    }
+
+                    upgrade.IsActive = false;
+                }
+                if (upgrade.Type == UpgradeType.RollingBoulder && upgrade.IsActive)
+                {
+                    int boulderStartPosX = 0;
+                    int boulderStartPosY = InsaneKillerArcher.Screen.Y - 20;
+
+                    int boulderVelX = 100;
+                    int boulderVelY = 0;
+
+                    boulder = new Boulder(new Vector2(boulderStartPosX, boulderStartPosY), new Vector2(boulderVelX, boulderVelY));
+
+                    animatedProjectiles.Add(boulder);
+                    upgrade.IsActive = false;
+                }
+                if (upgrade.Type == UpgradeType.BoilingOil && upgrade.IsActive)
+                {
+                    // do stuff if Boiling Oil is activated.
                 }
             }
 

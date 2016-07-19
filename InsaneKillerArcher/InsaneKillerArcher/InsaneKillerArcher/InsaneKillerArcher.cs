@@ -26,7 +26,7 @@ namespace InsaneKillerArcher
         {
             Content.RootDirectory = "Content";
 
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
 
             // zet de buffer hoogte naar 1080 en breedte naar 1920
             graphics.PreferredBackBufferWidth = 1920;
@@ -61,7 +61,7 @@ namespace InsaneKillerArcher
         {
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null,
-            Matrix.CreateScale(SCREEN_SIZE.X / 1920, SCREEN_SIZE.Y / 1080, 1));
+            Matrix.CreateScale(SCREEN_SIZE.X / 1280, SCREEN_SIZE.Y / 800, 1));
             gameStateManager.Draw(gameTime, spriteBatch);
             spriteBatch.End();
         }
