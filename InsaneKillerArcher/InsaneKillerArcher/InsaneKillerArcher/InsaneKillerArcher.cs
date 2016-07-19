@@ -60,7 +60,7 @@ namespace InsaneKillerArcher
         {
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null,
-            Matrix.CreateScale(SCREEN_SIZE.X / 1280, SCREEN_SIZE.Y / 800, 1));
+            Matrix.CreateScale(SCREEN_SIZE.X / 1920, SCREEN_SIZE.Y / 1080, 1));
             gameStateManager.Draw(gameTime, spriteBatch);
             spriteBatch.End();
         }

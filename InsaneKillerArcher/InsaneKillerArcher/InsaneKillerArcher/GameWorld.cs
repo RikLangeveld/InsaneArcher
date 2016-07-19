@@ -30,6 +30,9 @@ namespace InsaneKillerArcher
         private GameObjectList animatedProjectiles;
         private AnimatedGameObject boulder;
 
+        private Catapult catapult;
+        private GameObjectList catapultBoulders;
+
         private Random random = new Random(); // for all your Random needs!. :)
 
         public GameWorld()
@@ -64,6 +67,9 @@ namespace InsaneKillerArcher
             arrows = new GameObjectList();
             archerArrows = new GameObjectList();
             animatedProjectiles = new GameObjectList();
+            
+            catapult = new Catapult();
+            catapultBoulders = new GameObjectList();
 
             Add(castle);
             Add(enemySpawner);
@@ -72,6 +78,8 @@ namespace InsaneKillerArcher
             Add(arrows);
             Add(archerArrows);
             Add(animatedProjectiles);
+            Add(catapult);
+            Add(catapultBoulders);
             Add(groundList);
 
         }
@@ -236,7 +244,6 @@ namespace InsaneKillerArcher
                         {
                             arrow.deleteTimer ++;
                         }
-                        
                     }
                 }
             }
@@ -328,6 +335,30 @@ namespace InsaneKillerArcher
 
                 archerArrows.Add(arrow);
             }
+        }
+
+        public void CatapultShoot()
+        {
+            //Shortest length
+            float x = 99999;
+            //index of object with shortest length
+            int y = 50;
+
+            for (int i = 0; i < enemySpawner.Objects.Count; i++)
+            {
+                float length = (enemySpawner.Objects[i].Position - archer.Position).Length();
+                if (length < x)
+                {
+                    x = length;
+                    y = i;
+                }
+            }
+
+            float adjacent = (enemySpawner.Objects[y].Position.X - archer.Position.X) * 0.3f;
+            float opposite = -(enemySpawner.Objects[y].Position.Y - archer.Position.Y) * 1.5f;
+
+            CatapultBoulder boulder = new CatapultBoulder(player.Position, new Vector2(adjacent, opposite));
+            catapultBoulders.Add(boulder);
         }
 
         /// <summary>
