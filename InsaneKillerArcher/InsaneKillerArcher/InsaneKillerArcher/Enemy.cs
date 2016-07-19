@@ -26,7 +26,7 @@ namespace InsaneKillerArcher
             currentAnimations.Add("dead", new Animation("spr_enemy_dead_strip5@5x1", false));
             currentAnimations.Add("fighting", new Animation("spr_enemy_fight_strip2@2x1", true));
 
-            foreach(var a in currentAnimations)
+            foreach (var a in currentAnimations)
             {
                 this.LoadAnimation(spriteNames[a.Key], a.Key, currentAnimations[a.Key].IsLooping);
             }
@@ -53,11 +53,12 @@ namespace InsaneKillerArcher
         {
             velocity = Vector2.Zero;
             this.PlayAnimation("dead");
+            visible = false;
         }
 
         public bool shouldDeleteEnemy()
         {
-            return currentAnimations["dead"].AnimationEnded;
+            return animations["dead"].AnimationEnded;
         }
     }
 }
