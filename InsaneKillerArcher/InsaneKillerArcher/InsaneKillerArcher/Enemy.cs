@@ -7,6 +7,9 @@ namespace InsaneKillerArcher
 {
     class Enemy : AnimatedGameObject
     {
-        //public Enemy() 
+        public Enemy() : base(0, "Enemy")
+        {
+            //this.LoadAnimation("")
+        }
     }
 }
