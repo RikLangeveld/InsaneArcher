@@ -2,11 +2,39 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace InsaneKillerArcher
 {
     class EnemySpawner : GameObjectList
     {
 
+        private float spawnTime;
+        private float currentTime = 0f;
+
+        public EnemySpawner(float spawnTime)
+        {
+            this.spawnTime = spawnTime;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (spawnTime < currentTime)
+            {
+               // Add(Enemy());
+            }
+
+            currentTime = 0f;
+
+            base.Update(gameTime);
+        }
+
+        public float SpawnTime
+        {
+            get { return spawnTime; }
+            set { spawnTime = value; }
+        }
     }
 }
