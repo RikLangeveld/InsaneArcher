@@ -27,5 +27,10 @@ namespace InsaneKillerArcher
         {
             get { return body; }
         }
+
+        public PlayerWeapon Weapon
+        {
+            get { return weapon; }
+        }
     }
 }
