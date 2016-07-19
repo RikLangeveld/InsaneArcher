@@ -26,6 +26,8 @@ namespace InsaneKillerArcher
         private Player player;
         private GameObjectList arrows;
 
+        private Random random = new Random(); // for all your Random needs!. :)
+
 
         public GameWorld()
         {
@@ -91,14 +93,39 @@ namespace InsaneKillerArcher
                 {
                     if(upgrade.Type == UpgradeType.OverheadArrows && upgrade.IsActive)
                     {
-                        int interval = 100;
+                        // Tweak values;
+                        int intervalXMin = 50;
+                        int intervalXMax = 75;
+
+                        int arrowDirectionXMin = 1;
+                        int arrowDirectionXMax = 2;
+
+                        int arrowDirectionYMin = 8;
+                        int arrowDirectionYMax = 12;
+
+                        int arrowSpawnYMin = -25;
+                        int arrowSpawnYMax = -5;
+
+
+                        int interval = random.Next(intervalXMin, intervalXMax);
 
                         for (int i=100; i<InsaneKillerArcher.Screen.X - 100; i += interval)
                         {
-                            arrows.Add(new Arrow("spr_arrow", new Vector2(i, 0)));
+                            Vector2 normalizedArrowDirection = new Vector2(random.Next(arrowDirectionXMin, arrowDirectionXMax), random.Next(arrowDirectionYMin, arrowDirectionYMax));
+                            normalizedArrowDirection.Normalize();
+
+                            arrows.Add(new Arrow("spr_arrow", new Vector2(i, random.Next(arrowSpawnYMin, arrowSpawnYMax)), normalizedArrowDirection, 100));
                         }
 
                         upgrade.IsActive = false;
+                    }
+                    if(upgrade.Type == UpgradeType.RollingBoulder && upgrade.IsActive)
+                    {
+                        // do stuff if Boulder is activated.
+                    }
+                    if(upgrade.Type == UpgradeType.BoilingOil && upgrade.IsActive)
+                    {
+                        // do stuff if Boiling Oil is activated.
                     }
                 }
             }
