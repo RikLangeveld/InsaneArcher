@@ -16,11 +16,16 @@ namespace InsaneKillerArcher
             body = new PlayerBody("spr_archer");
             weapon = new PlayerWeapon("spr_boog");
 
-            body.Position = new Vector2(50, 250);
-            weapon.Position = new Vector2(body.Position.X + 5, body.Position.Y + 25);
+            body.Position = new Vector2(position.X, position.Y);
+            weapon.Position = new Vector2(position.X + 5, position.Y);
 
             Add(body);
             Add(weapon);
+        }
+
+        public PlayerBody Body
+        {
+            get { return body; }
         }
     }
 }
