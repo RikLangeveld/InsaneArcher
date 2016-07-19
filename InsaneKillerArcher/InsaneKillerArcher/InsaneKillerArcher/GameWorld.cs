@@ -11,12 +11,14 @@ namespace InsaneKillerArcher
 {
     class GameWorld : GameObjectList
     {
-        private SpriteGameObject background;
+
         private EnemySpawner enemySpawner;
         private Castle castle;
         private GameObjectList groundList;
         private SpriteGameObject ground;
         private Player player;
+
+        private Arrow arrow;
 
 
         public GameWorld()
@@ -74,7 +76,18 @@ namespace InsaneKillerArcher
             //Heeft nog een restrictie nodig, max/min opposite en adjacent. Zodat de arm niet 360 graden kan draaien.
             player.Weapon.Angle = (float)Math.Atan2(opposite, adjacent);
 
+            if (inputHelper.MouseLeftButtonPressed())
+            {
+                arrow = new Arrow("spr_arrow", player.Position);
+                Add(arrow);
+            }
+
             base.HandleInput(inputHelper);
+        }
+
+        public void Shoot()
+        {
+            Arrow arrow = new Arrow("arrow_projectile", player.Position);
         }
     }
 }
