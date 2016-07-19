@@ -26,6 +26,8 @@ namespace InsaneKillerArcher
         private Player player;
         private GameObjectList arrows;
 
+        private Random random = new Random(); // for all your Random needs!. :)
+
         public GameWorld()
         {
             //laat bovenaan staan, is aleen de achtergrond.
@@ -50,7 +52,7 @@ namespace InsaneKillerArcher
             player.Position = new Vector2(50, InsaneKillerArcher.Screen.Y - castle.Height - player.Body.Height + 35);
 
             enemySpawner = new EnemySpawner(2f, EnemySpawner.EnemyType.Enemy);
-            zeppelinSpawner = new EnemySpawner(12f, EnemySpawner.EnemyType.Zeppelin);
+            zeppelinSpawner = new EnemySpawner(20f, EnemySpawner.EnemyType.Zeppelin);
 
             arrows = new GameObjectList();
 
@@ -67,9 +69,9 @@ namespace InsaneKillerArcher
 
             foreach (Enemy enemy in enemySpawner.Objects)
             {
-                //Als de enemy in aanraking komt met het kasteel, gaat deze dood -> alleen voor debugging.
-                if (enemy.CollidesWith(castle))
-                    enemy.EnemyDead();
+                float distanceToCastle = (enemy.Position - castle.Position).Length();
+                if (distanceToCastle <= 300)
+                    enemy.EnemyIdle();
 
                 if (enemy.Health == 0)
                     enemy.EnemyDead();
@@ -78,31 +80,71 @@ namespace InsaneKillerArcher
                 if (enemy.shouldDeleteEnemy())
                     enemy.Visible = false;
 
-                foreach (Arrow arrow in arrows.Objects)
+                for (int i = arrows.Objects.Count-1; i > 0; i--)
                 {
-                    if (enemy.CollidesWith(arrow))
+                    if (enemy.CollidesWith(arrows.Objects[i] as Arrow))
                     {
+                        arrows.Remove(arrows.Objects[i]);
                         enemy.Health -= 50;
-                        arrow.Visible = false;
+                    }
+                }
+
+                foreach(BuyableGameObject upgrade in Store.upgrades)
+                {
+                    if(upgrade.Type == UpgradeType.OverheadArrows && upgrade.IsActive)
+                    {
+                        // Tweak values;
+                        int intervalXMin = 50;
+                        int intervalXMax = 75;
+
+                        int arrowDirectionXMin = 1;
+                        int arrowDirectionXMax = 2;
+
+                        int arrowDirectionYMin = 8;
+                        int arrowDirectionYMax = 12;
+
+                        int arrowSpawnYMin = -25;
+                        int arrowSpawnYMax = -5;
+
+
+                        int interval = random.Next(intervalXMin, intervalXMax);
+
+                        for (int i=100; i<InsaneKillerArcher.Screen.X - 100; i += interval)
+                        {
+                            Vector2 normalizedArrowDirection = new Vector2(random.Next(arrowDirectionXMin, arrowDirectionXMax), random.Next(arrowDirectionYMin, arrowDirectionYMax));
+                            normalizedArrowDirection.Normalize();
+
+                            arrows.Add(new Arrow("spr_arrow", new Vector2(i, random.Next(arrowSpawnYMin, arrowSpawnYMax)), normalizedArrowDirection, 100));
+                        }
+
+                        upgrade.IsActive = false;
+                    }
+                    if(upgrade.Type == UpgradeType.RollingBoulder && upgrade.IsActive)
+                    {
+                        // do stuff if Boulder is activated.
+                    }
+                    if(upgrade.Type == UpgradeType.BoilingOil && upgrade.IsActive)
+                    {
+                        // do stuff if Boiling Oil is activated.
                     }
                 }
             }
 
             foreach (Zeppelin zeppelin in zeppelinSpawner.Objects)
             {
-                //Als de enemy in aanraking komt met het kasteel, gaat deze dood -> alleen voor debugging.
-                if (zeppelin.CollidesWith(castle))
-                    zeppelin.Dead();
+                float distanceToCastle = (zeppelin.Position - castle.Position).Length();
+                if (distanceToCastle <= 400 || zeppelin.Position.X < 200)
+                    zeppelin.Idle();
 
                 if (zeppelin.Health == 0)
                     zeppelin.Dead();
 
-                foreach (Arrow arrow in arrows.Objects)
+                for (int i = arrows.Objects.Count - 1; i > 0; i--)
                 {
-                    if (zeppelin.CollidesWith(arrow))
+                    if (zeppelin.CollidesWith(arrows.Objects[i] as Arrow))
                     {
+                        arrows.Remove(arrows.Objects[i]);
                         zeppelin.Health -= 50;
-                        arrow.Visible = false;
                     }
                 }
             }
