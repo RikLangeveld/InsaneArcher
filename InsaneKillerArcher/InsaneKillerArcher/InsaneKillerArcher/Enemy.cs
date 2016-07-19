@@ -51,7 +51,6 @@ namespace InsaneKillerArcher
         {
             velocity = Vector2.Zero;
             this.PlayAnimation("dead");
-            visible = false;
         }
 
         public bool shouldDeleteEnemy()

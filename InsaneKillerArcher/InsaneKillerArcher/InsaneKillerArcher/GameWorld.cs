@@ -13,12 +13,12 @@ namespace InsaneKillerArcher
     {
 
         private EnemySpawner enemySpawner;
+        private EnemySpawner zeppelinSpawner;
         private Castle castle;
         private GameObjectList groundList;
         private SpriteGameObject ground;
         private Player player;
-
-        private Arrow arrow;
+        private GameObjectList arrows;
 
 
         public GameWorld()
@@ -44,11 +44,16 @@ namespace InsaneKillerArcher
             player = new Player();
             player.Position = new Vector2(50, InsaneKillerArcher.Screen.Y - castle.Height - player.Body.Height + 35);
 
-            enemySpawner = new EnemySpawner(2f);
+            enemySpawner = new EnemySpawner(2f, EnemySpawner.EnemyType.Enemy);
+            zeppelinSpawner = new EnemySpawner(12f, EnemySpawner.EnemyType.Zeppelin);
+
+            arrows = new GameObjectList();
 
             Add(castle);
             Add(enemySpawner);
+            Add(zeppelinSpawner);
             Add(player);
+            Add(arrows);
         }
 
         public override void Update(GameTime gameTime)
@@ -59,25 +64,47 @@ namespace InsaneKillerArcher
                 //Als de enemy in aanraking komt met het kasteel, gaat deze dood -> alleen voor debugging.
                 if (enemy.CollidesWith(castle))
                     enemy.EnemyDead();
+
+                if (enemy.Health == 0)
+                    enemy.EnemyDead();
                 
                 //Als de enemy verwijderd moet worden, wordt de sprite onzichtbaar gemaakt. Hierna wordt deze verwijderd in de EnemySpawner class.
                 if (enemy.shouldDeleteEnemy())
                     enemy.Visible = false;
 
-                for (int i = gameObjects.Count - 1; i > 0; i--)
-                    if (typeof(Arrow).Equals(gameObjects[i]))
+                foreach (Arrow arrow in arrows.Objects)
+                {
+                    if (enemy.CollidesWith(arrow))
                     {
-                        if ((gameObjects[i] as Arrow).CollidesWith(enemy))
-                        {
-                            enemy.Health -= 50;
-                            arrow.Visible = false;
-                        }
-
-                        if (!gameObjects[i].Visible)
-                            Remove(gameObjects[i]);
+                        enemy.Health -= 50;
+                        arrow.Visible = false;
                     }
+                }
             }
-           
+
+            foreach (Zeppelin zeppelin in zeppelinSpawner.Objects)
+            {
+                //Als de enemy in aanraking komt met het kasteel, gaat deze dood -> alleen voor debugging.
+                if (zeppelin.CollidesWith(castle))
+                    zeppelin.Dead();
+
+                if (zeppelin.Health == 0)
+                    zeppelin.Dead();
+
+                foreach (Arrow arrow in arrows.Objects)
+                {
+                    if (zeppelin.CollidesWith(arrow))
+                    {
+                        zeppelin.Health -= 50;
+                        arrow.Visible = false;
+                    }
+                }
+            }
+
+            for (int i = gameObjects.Count - 1; i > 0; i--)
+                if (!gameObjects[i].Visible)
+                    Remove(gameObjects[i]);
+
             base.Update(gameTime);
         }
 
@@ -92,8 +119,8 @@ namespace InsaneKillerArcher
 
             if (inputHelper.MouseLeftButtonPressed())
             {
-                arrow = new Arrow("spr_arrow", player.Position);
-                Add(arrow);
+                Arrow arrow = new Arrow("spr_arrow", player.Position);
+                arrows.Add(arrow);
             }
 
             if (inputHelper.KeyPressed(Keys.P))
