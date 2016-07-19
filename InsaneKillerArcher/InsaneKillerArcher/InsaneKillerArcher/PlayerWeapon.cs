@@ -9,7 +9,7 @@ namespace InsaneKillerArcher
 {
     class PlayerWeapon : SpriteGameObject
     {
-        private float angle;
+        private float angle = 0.0f;
 
         public PlayerWeapon(string assetname) : base(assetname)
         {
@@ -18,6 +18,12 @@ namespace InsaneKillerArcher
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(sprite.Sprite, GlobalPosition, null, Color.White, angle, origin, 1.0f, SpriteEffects.None, 0);
+        }
+
+        public float Angle
+        {
+            get { return angle; }
+            set { angle = value; }
         }
     }
 }

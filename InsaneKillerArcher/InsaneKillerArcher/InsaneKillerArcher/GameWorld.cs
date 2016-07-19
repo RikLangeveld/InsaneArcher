@@ -23,8 +23,6 @@ namespace InsaneKillerArcher
             castle = new SpriteGameObject("spr_castle");
             groundList = new GameObjectList();
 
-
-
             for (int i = 0; i < InsaneKillerArcher.Screen.X/32; i++)
             {
                 ground = new SpriteGameObject("gras");
@@ -37,10 +35,19 @@ namespace InsaneKillerArcher
             Add(groundList);
 
             player = new Player();
-            player.Position = new Vector2(50, InsaneKillerArcher.Screen.Y - castle.Height - player.Body.Height);
+            player.Position = new Vector2(50, InsaneKillerArcher.Screen.Y - castle.Height - player.Body.Height + 35);
 
             Add(castle);
             Add(player);
+        }
+
+        public override void HandleInput(InputHelper inputHelper)
+        {
+            double opposite = inputHelper.MousePosition.Y - player.Position.Y;
+            double adjacent = inputHelper.MousePosition.X - player.Position.X;
+            player.Weapon.Angle = (float)Math.Atan2(opposite, adjacent);
+
+            base.HandleInput(inputHelper);
         }
     }
 }
