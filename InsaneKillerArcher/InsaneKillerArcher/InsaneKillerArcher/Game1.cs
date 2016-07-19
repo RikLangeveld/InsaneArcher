@@ -14,28 +14,27 @@ namespace InsaneKillerArcher
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class InsaneKillerArcher : GameEnvironment
+ 
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        protected Vector2 SCREEN_SIZE = new Vector2(
+            GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width,
+            GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height
+            );
 
-        public Game1()
+        public InsaneKillerArcher()
         {
-            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-        }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
-        protected override void Initialize()
-        {
-            // TODO: Add your initialization logic here
+            graphics.IsFullScreen = true;
 
-            base.Initialize();
+            // zet de buffer hoogte naar 1080 en breedte naar 1920
+            graphics.PreferredBackBufferWidth = (int)SCREEN_SIZE.X;
+            graphics.PreferredBackBufferHeight = (int)SCREEN_SIZE.Y;
+
+            //maak de mouse visable in de game om te kunnen mikken
+            IsMouseVisible = true;
+
         }
 
         /// <summary>
@@ -44,48 +43,26 @@ namespace InsaneKillerArcher
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            base.LoadContent();
+
+            screen = new Point(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
             // TODO: use this.Content to load your game content here
+            // Adds a playingstate to the game
+            gameStateManager.AddGameState("playingState", new GameWorld());
+
+            // sets the gamestate to playing
+            gameStateManager.SwitchTo("playingState");
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
-        protected override void UnloadContent()
-        {
-            // TODO: Unload any non ContentManager content here
-        }
-
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update(GameTime gameTime)
-        {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
-            // TODO: Add your update logic here
-
-            base.Update(gameTime);
-        }
-
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
-            base.Draw(gameTime);
+            GraphicsDevice.Clear(Color.Black);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null,
+                Matrix.CreateScale(SCREEN_SIZE.X / 1920, SCREEN_SIZE.Y / 1080, 1));
+            gameStateManager.Draw(gameTime, spriteBatch);
+            spriteBatch.End();
         }
     }
 }
