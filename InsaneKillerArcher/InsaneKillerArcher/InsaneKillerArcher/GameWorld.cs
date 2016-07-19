@@ -47,7 +47,11 @@ namespace InsaneKillerArcher
         {
             double opposite = inputHelper.MousePosition.Y - player.Position.Y;
             double adjacent = inputHelper.MousePosition.X - player.Position.X;
-            player.Weapon.Angle = (float)Math.Atan2(opposite, adjacent);
+            if (adjacent > 1 && opposite < 22) 
+                player.Weapon.Angle = (float)Math.Atan2(opposite, adjacent);
+
+            Console.WriteLine("adjacent: " + adjacent);
+            Console.WriteLine("Weapon Angle: " + player.Weapon.Angle);
 
             base.HandleInput(inputHelper);
         }
