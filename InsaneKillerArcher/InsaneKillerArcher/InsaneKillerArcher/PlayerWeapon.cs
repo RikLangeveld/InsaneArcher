@@ -10,10 +10,13 @@ namespace InsaneKillerArcher
     class PlayerWeapon : SpriteGameObject
     {
         private float angle = 0.0f;
+        private float damage;
 
         public PlayerWeapon(string assetname) : base(assetname)
         {
             origin = new Vector2(Width / 2, Height / 2);
+
+            damage = 50.0f;
         }
 
         /// <summary>
@@ -28,6 +31,11 @@ namespace InsaneKillerArcher
         {
             get { return angle; }
             set { angle = value; }
+        }
+
+        public float Damage
+        {
+            get { return damage; }
         }
     }
 }
