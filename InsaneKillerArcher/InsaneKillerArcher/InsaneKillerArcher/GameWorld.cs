@@ -144,7 +144,7 @@ namespace InsaneKillerArcher
                     }
                 }
 
-                if (IsOutsideRoomRight(boulder.Position.X, boulder.Width))
+                if (boulder != null && IsOutsideRoomRight(boulder.Position.X, boulder.Width))
                 {
                     animatedProjectiles.Remove(boulder);
                 }

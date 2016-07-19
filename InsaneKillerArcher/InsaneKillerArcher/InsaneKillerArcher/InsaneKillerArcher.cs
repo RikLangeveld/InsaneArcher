@@ -33,7 +33,7 @@ namespace InsaneKillerArcher
             graphics.PreferredBackBufferHeight = 1080;
 
             //maak de mouse visable in de game om te kunnen mikken
-            IsMouseVisible = true;
+            IsMouseVisible = false;
 
         }
 
