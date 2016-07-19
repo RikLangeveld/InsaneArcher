@@ -18,11 +18,6 @@ namespace InsaneKillerArcher
             castle = new SpriteGameObject("spr_castle");
             castle.Position = new Vector2( 0 , InsaneKillerArcher.Screen.Y - castle.Height);
 
-            for (int i = 0; i < screen.; i++)
-            {
-
-            }
-
             Add(castle);
         }
 
