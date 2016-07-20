@@ -97,8 +97,8 @@ namespace InsaneKillerArcher
 
                     Vector2 distanceVector = gameWorld.EnemySpawner.Objects[y].Position - position;
 
-                    float adjacent = distanceVector.X * 0.3f;
-                    float opposite = -distanceVector.Y * 1.5f;
+                    float adjacent = distanceVector.X * .4f;
+                    float opposite = -distanceVector.Y * 1.2f;
 
                     CatapultBoulder boulder = new CatapultBoulder(new Vector2(position.X, position.Y - 32), new Vector2(adjacent, opposite));
                     gameWorld.CatapultBoulders.Add(boulder);
