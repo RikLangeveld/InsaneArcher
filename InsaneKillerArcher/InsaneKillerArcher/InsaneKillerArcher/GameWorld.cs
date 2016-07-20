@@ -18,6 +18,7 @@ namespace InsaneKillerArcher
 
         private float arrowSpeed = 300;
 
+        private StatusBar statusBar;
         private EnemySpawner enemySpawner;
         private EnemySpawner zeppelinSpawner;
         private Castle castle;
@@ -38,7 +39,9 @@ namespace InsaneKillerArcher
         {
             //laat bovenaan staan, is aleen de achtergrond.
             Add(new SpriteGameObject("background"));
-            Add(new SpriteGameObject("spr_bar"));
+
+            statusBar = new StatusBar();
+            Add(statusBar);
 
             castle = new Castle();
             groundList = new GameObjectList();
