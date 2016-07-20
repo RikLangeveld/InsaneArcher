@@ -142,9 +142,9 @@ namespace InsaneKillerArcher
                 }
             }
 
-            foreach (BuyableGameObject upgrade in Store.upgrades)
+            foreach (ClickableSpriteGameObject icon in statusBar.ClickableObjects.Objects)
             {
-                if (upgrade.Type == UpgradeType.OverheadArrows && upgrade.IsActive)
+                if (icon.Type == IconType.OverheadArrowsIcon && icon.Clickable && icon.Clicked)
                 {
                     // Tweak values;
                     int intervalXMin = 50;
@@ -170,9 +170,9 @@ namespace InsaneKillerArcher
                         arrows.Add(new Arrow(new Vector2(i, random.Next(arrowSpawnYMin, arrowSpawnYMax)), normalizedArrowDirection, 100));
                     }
 
-                    upgrade.IsActive = false;
+                    icon.SetInactive();
                 }
-                if (upgrade.Type == UpgradeType.RollingBoulder && upgrade.IsActive)
+                if (icon.Type == IconType.RollingBoulderIcon && icon.Clickable && icon.Clicked)
                 {
                     int boulderStartPosX = 0;
                     int boulderStartPosY = InsaneKillerArcher.Screen.Y - 15;
@@ -183,12 +183,17 @@ namespace InsaneKillerArcher
                     boulder = new Boulder(new Vector2(boulderStartPosX, boulderStartPosY), new Vector2(boulderVelX, boulderVelY));
 
                     animatedProjectiles.Add(boulder);
-                    upgrade.IsActive = false;
+                    icon.SetInactive();
                 }
-                if (upgrade.Type == UpgradeType.BoilingOil && upgrade.IsActive)
+                if (icon.Type == IconType.BoilingOilIcon && icon.Clickable && icon.Clicked)
                 {
                     // do stuff if Boiling Oil is activated.
                 }
+
+            }
+
+            foreach (BuyableGameObject upgrade in Store.upgrades)
+            {
                 if (upgrade.Type == UpgradeType.CastleUpgrade && upgrade.IsActive)
                 {
                     castle.CastleLevel++;
@@ -222,7 +227,7 @@ namespace InsaneKillerArcher
                 {
                     int catapultSpace = castle.CheckForCatapultSpace();
                     castle.AskForCatapults += upgrade.Level;
-                    if (catapultSpace != 0 && castle.AskForCatapults != 0 )
+                    if (catapultSpace != 0 && castle.AskForCatapults != 0)
                     {
                         for (int i = 0; i < castle.AskForCatapults; i++)
                         {
