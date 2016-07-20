@@ -12,12 +12,20 @@ namespace InsaneKillerArcher
         public bool FirstBounce { get { return firstBounce; } set { firstBounce = value; } }
 
         private float gravity = 3f;
+        private int bounceNumber = 0;
+        private int destroyAtbounces = 3;
 
         public CatapultBoulder(Vector2 position, Vector2 velocity) : base(0, "CatapultBoulder", new Dictionary<string, string>(), new Dictionary<string, Animation>(), position, velocity)
         {
-            addAnimation("spr_bolder_25p@4x4", "flying", true);
+
+            AddAnimation("spr_bolder_25p@4x4", "flying", true);
+
 
             PlayAnimation("flying");
+            
+            
+
+            this.origin = Center;
         }
 
         public override void Update(GameTime gameTime)
@@ -33,9 +41,30 @@ namespace InsaneKillerArcher
             set { gravity = value; }
         }
 
-        public void Bounce()
+        public void Bounce(float groundPositionY)
         {
-            velocity.Y = -velocity.Y * 0.9f;
+            float overlapY = 0;
+
+            //De bounce werkt nog niet helemaal goed.
+
+            overlapY = position.Y + Height/2 - groundPositionY;
+            Console.WriteLine(overlapY);
+
+            Vector2 velocityNormal = Vector2.Normalize(velocity);
+            Vector2 overlap = velocityNormal * velocityNormal;
+
+            position.Y = groundPositionY;
+            position.X -= overlap.X;
+
+            velocity.Y = -velocity.Y * 0.4f;
+            velocity.X = velocity.X * 0.4f;
+
+            bounceNumber++;
+
+            if (bounceNumber >= destroyAtbounces)
+                visible = false;
+
+            
         }
     }
 }

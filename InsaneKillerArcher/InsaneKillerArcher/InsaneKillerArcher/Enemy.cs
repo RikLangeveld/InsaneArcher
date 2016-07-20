@@ -75,7 +75,7 @@ namespace InsaneKillerArcher
             attacking = false;
         }
 
-        public bool shouldDeleteEnemy()
+        public bool ShouldDeleteEnemy()
         {
             return animations["dead"].AnimationEnded;
         }

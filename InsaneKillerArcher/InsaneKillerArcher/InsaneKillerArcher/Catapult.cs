@@ -18,7 +18,7 @@ namespace InsaneKillerArcher
         private Dictionary<string, Animation> currentAnimations = new Dictionary<string, Animation>();
         private Dictionary<string, string> spriteNames = new Dictionary<string, string>();
 
-        public Catapult() : base()
+        public Catapult(Vector2 position) : base()
         {
             spriteNames.Add("idle", "catepult@1x1");
             spriteNames.Add("attack", "catepult_strip3@3x1");
@@ -39,6 +39,8 @@ namespace InsaneKillerArcher
             canShoot = true;
 
             PlayAnimation("idle");
+
+            base.position = position;
         }
 
         public override void Update(GameTime gameTime)
