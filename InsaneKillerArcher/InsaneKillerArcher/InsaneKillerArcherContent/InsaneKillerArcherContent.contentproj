@@ -239,8 +239,6 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-  
-  
   <ItemGroup>
     <Compile Include="spr_troll_walking_strip9%409x1.png">
       <Name>spr_troll_walking_strip9%409x1</Name>
@@ -253,7 +251,13 @@
       <Name>spr_bat_flying_strip12%4012x1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameFont.spritefont">
+      <Name>GameFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

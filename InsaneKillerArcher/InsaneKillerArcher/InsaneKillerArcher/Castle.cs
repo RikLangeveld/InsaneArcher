@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace InsaneKillerArcher
 {
@@ -14,6 +15,9 @@ namespace InsaneKillerArcher
         private Dictionary<Vector2, bool> archerPositions;
         private Dictionary<Vector2, bool> catapultPositions;
         private Dictionary<Vector2, SpriteGameObject> catapultObjects;
+
+        private SpriteGameObject healthTexture;
+        private float maxHealth = 1000;
         private float health = 1000;
 
         private int askForArchers = 0;
@@ -52,7 +56,10 @@ namespace InsaneKillerArcher
             catapultObjects = new Dictionary<Vector2 , SpriteGameObject>();
 
             archerPositions.Add(new Vector2(91, 917), false);
-           // catapultPositions.Add(new Vector2(142, 950), false);
+            // catapultPositions.Add(new Vector2(142, 950), false);
+
+            healthTexture = new SpriteGameObject("spr_bar");
+            healthTexture.Position = mainCastle.Position + new Vector2(30, -50);
 
             Add(castlePart2);
             Add(MakeCatapult(new Vector2(142, 950)));
@@ -123,6 +130,13 @@ namespace InsaneKillerArcher
                 InsaneKillerArcher.GameStateManager.SwitchTo("gameOver");
             }
 
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(healthTexture.Sprite.Sprite, healthTexture.GlobalPosition, null, Color.White, 0f, healthTexture.Origin, new Vector2((health/maxHealth) / 9, 0.25f), SpriteEffects.None, 0f);
+
+            base.Draw(gameTime, spriteBatch);
         }
 
         public Catapult MakeCatapult(Vector2 position)
