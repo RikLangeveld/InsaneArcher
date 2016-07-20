@@ -79,10 +79,9 @@ namespace InsaneKillerArcher
 
             if (MouseOver(inputHelper.MousePosition, castleUpgrade) && inputHelper.MouseLeftButtonPressed())
             {
-                if (castleUpgrade.Level <= 1)
-                {
+
                     castleUpgrade.UpgradeLevel();
-                }
+
             }
 
             if (MouseOver(inputHelper.MousePosition, archerUpgrade) && inputHelper.MouseLeftButtonPressed())
