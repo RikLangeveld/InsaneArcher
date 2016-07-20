@@ -61,9 +61,17 @@ namespace InsaneKillerArcher
             healthTexture = new SpriteGameObject("spr_bar");
             healthTexture.Position = mainCastle.Position + new Vector2(30, -50);
 
+            archerPositions.Add(new Vector2(91, 917), false);
+            catapultPositions.Add(new Vector2(142, 950), false);
+
+            Add(MakeCatapult(new Vector2(110, 835)));
+            //Add(MakeArcher(new Vector2(115, 860)));
+            //Add(MakeArcher(new Vector2(145, 860)));
             Add(castlePart2);
-            Add(MakeCatapult(new Vector2(142, 950)));
+            Add(MakeArcher(new Vector2(115, 860)));
+            Add(MakeArcher(new Vector2(145, 860)));
             Add(castlePart1);
+            Add(MakeCatapult(new Vector2(142, 950)));
             Add(MakeArcher(new Vector2(91, 917)));
             Add(mainCastle);
         }
@@ -149,7 +157,6 @@ namespace InsaneKillerArcher
         public Catapult MakeCatapult(Vector2 position)
         {
             Catapult catapult = new Catapult(position);
-            catapultPositions.Add(position, false);
             catapultObjects.Add(position, catapult);
             catapult.Visible = false;
             return catapult;
@@ -158,7 +165,6 @@ namespace InsaneKillerArcher
         public Archer MakeArcher(Vector2 position)
         {
             Archer archer = new Archer(position);
-            archerPositions.Add(position, false);
             archerObjects.Add(position, archer);
             archer.Visible = false;
             archer.body.Visible = false;
@@ -171,9 +177,14 @@ namespace InsaneKillerArcher
             if (castleLevel == 1)
             {
                 castlePart1.Visible = true;
+                archerPositions.Add(new Vector2(115, 860), false);
+                archerPositions.Add(new Vector2(145, 860), false);
             }
             else if (castleLevel == 2)
             {
+                //archerPositions.Add(new Vector2(107, 900), false);
+                //archerPositions.Add(new Vector2(145, 860), false);
+                catapultPositions.Add(new Vector2(110, 835), false);
                 castlePart2.Visible = true;
             }
         }
