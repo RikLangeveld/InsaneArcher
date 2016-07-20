@@ -101,6 +101,7 @@ namespace InsaneKillerArcher
 
                         if (enemy.GetType().Equals(typeof(Bat)))
                         {
+                            castle.Health -= enemy.AttackDamage;
                             enemy.Health = 0;
                         }
                     }

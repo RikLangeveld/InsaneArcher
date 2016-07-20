@@ -52,15 +52,11 @@ namespace InsaneKillerArcher
             castlePart1.Visible = false;
             castlePart2.Visible = false;
 
-
             archerPositions = new Dictionary<Vector2, bool>();
             archerObjects = new Dictionary<Vector2, Archer>();
 
             catapultPositions = new Dictionary<Vector2, bool>();
             catapultObjects = new Dictionary<Vector2 , SpriteGameObject>();
-
-            archerPositions.Add(new Vector2(91, 917), false);
-            // catapultPositions.Add(new Vector2(142, 950), false);
 
             healthTexture = new SpriteGameObject("spr_bar");
             healthTexture.Position = mainCastle.Position + new Vector2(30, -50);
