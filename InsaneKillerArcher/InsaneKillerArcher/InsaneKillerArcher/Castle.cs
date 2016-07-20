@@ -28,9 +28,6 @@ namespace InsaneKillerArcher
         public SpriteGameObject mainCastle;
         private SpriteGameObject castlePart1;
         private SpriteGameObject castlePart2;
-        private SpriteGameObject castlePart3;
-        private SpriteGameObject castlePart4;
-        private SpriteGameObject castlePart5;
 
         public float Health
         {
@@ -142,6 +139,7 @@ namespace InsaneKillerArcher
 
             if (health <= 0)
             {
+                InsaneKillerArcher.AssetManager.PlaySound("Game_over");
                 InsaneKillerArcher.GameStateManager.SwitchTo("gameOver");
             }
 

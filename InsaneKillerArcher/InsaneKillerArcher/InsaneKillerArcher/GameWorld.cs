@@ -6,6 +6,8 @@ using InsaneKillerArcher;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 
 namespace InsaneKillerArcher
 {
@@ -17,6 +19,8 @@ namespace InsaneKillerArcher
         private float shootCooldownTimer = 0f; // checks if cooldown is already done.
 
         private float arrowSpeed = 300;
+
+        private SoundEffect rockHitsGround;
 
         private StatusBar statusBar;
         private EnemySpawner enemySpawner;
@@ -36,6 +40,9 @@ namespace InsaneKillerArcher
 
         public GameWorld()
         {
+            //soundeffecten inladen
+            
+
             //laat bovenaan staan, is aleen de achtergrond.
             Add(new SpriteGameObject("background"));
 
@@ -53,7 +60,6 @@ namespace InsaneKillerArcher
                 groundList.Add(ground);
             }
 
-            
             player = new Player();
 
             player.Position = new Vector2(50, InsaneKillerArcher.Screen.Y - castle.mainCastle.Height - player.Body.Height + 35);
@@ -122,6 +128,7 @@ namespace InsaneKillerArcher
                 {
                     if (enemy.CollidesWith(arrows.Objects[i] as Arrow))
                     {
+                        InsaneKillerArcher.AssetManager.PlaySound("hit_enemy2");
                         arrows.Remove(arrows.Objects[i]);
                         enemy.Health -= player.Weapon.Damage;
                     }
@@ -212,22 +219,26 @@ namespace InsaneKillerArcher
                 if (upgrade.Type == UpgradeType.ArcherUpgrade && upgrade.IsActive)
                 {
                     int archerSpace = castle.CheckForArcherSpace();
-                    castle.AskForArchers += upgrade.Level;
+                    if (!upgrade.Claimed)
+                    {
+                        castle.AskForArchers += 1;
+                        upgrade.Claimed = true;
+                    }
                     if (archerSpace != 0 && castle.AskForArchers != 0)
                     {
                         for (int i = 0; i < castle.AskForArchers; i++)
                         {
                             archerSpace--;
                             Vector2 newArcherPosition = castle.GetNewArcherPosition();
-                            Console.WriteLine(newArcherPosition);
                             if (newArcherPosition != Vector2.Zero)
                             {
                                 castle.makeArcherVisible(newArcherPosition);
-                                return;
+                                castle.AskForArchers--;
                             }
                         }
                         upgrade.IsActive = false;
                     }
+                    
                 }
 
                 if (upgrade.Type == UpgradeType.CatapultUpgrade && upgrade.IsActive)
@@ -264,7 +275,7 @@ namespace InsaneKillerArcher
                     {
                         if (arrow.Active)
                         {
-
+                            InsaneKillerArcher.AssetManager.PlaySound("hit_enemy");
                             arrow.Velocity = Vector2.Zero;
                             arrow.Gravity = 0;
 

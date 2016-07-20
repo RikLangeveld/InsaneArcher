@@ -23,6 +23,7 @@ namespace InsaneKillerArcher
         float price;
         UpgradeType type;
         bool isActive = false;
+        bool claimed = false;
         int level = 0;
 
         public BuyableGameObject(float price, UpgradeType type, string spriteName, Vector2 position) : base(spriteName)
@@ -57,6 +58,12 @@ namespace InsaneKillerArcher
         public int Level
         {
             get { return level; }
+        }
+
+        public bool Claimed
+        {
+            get { return claimed; }
+            set { claimed = value; }
         }
     }
 }
