@@ -5,6 +5,8 @@ namespace InsaneKillerArcher
 {
     class Enemy : AnimatedGameObject
     {
+        private float baseAttackTimer;
+        private float attackTimer;
         private bool attacking = false;
         private bool attack = false;
         private int moneyDrop;
@@ -14,12 +16,11 @@ namespace InsaneKillerArcher
         protected float movementSpeed = 100;
         protected float health = 100f;
         protected float attackDamage = 35f;
-        protected float attackTimer = 0.5f;
-       
+ 
         private Dictionary<string, Animation> currentAnimations = new Dictionary<string, Animation>();
         private Dictionary<string, string> spriteNames = new Dictionary<string, string>();
 
-        public Enemy(string moveAnim, string deadAnim, string attackAnim, int moneyDrop) : base(0, "Enemy")
+        public Enemy(string moveAnim, string deadAnim, string attackAnim, float baseAttackTimer, int moneyDrop) : base(0, "Enemy")
         {
             spriteNames.Add("moving", moveAnim);
             spriteNames.Add("dead", deadAnim);
@@ -35,10 +36,11 @@ namespace InsaneKillerArcher
             }
 
             position = startPosition;
-
             Moving();
 
             this.moneyDrop = moneyDrop;
+            this.baseAttackTimer = baseAttackTimer;
+            attackTimer = baseAttackTimer;
         }
 
         public override void Update(GameTime gameTime)
@@ -49,7 +51,7 @@ namespace InsaneKillerArcher
             if (attackTimer <= 0)
             {
                 attack = true;
-                attackTimer = 0.5f;
+                attackTimer = baseAttackTimer;
             }
 
             base.Update(gameTime);

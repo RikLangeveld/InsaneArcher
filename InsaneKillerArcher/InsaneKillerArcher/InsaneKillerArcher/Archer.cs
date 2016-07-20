@@ -17,6 +17,7 @@ namespace InsaneKillerArcher
 
         private float shootDelay;
         private float timer;
+        private bool canShoot = false;
 
         public Archer(Vector2 newPos)
         {
@@ -50,10 +51,13 @@ namespace InsaneKillerArcher
             
             if (timer > shootDelay)
             {
-                (GameWorld as GameWorld).ArcherShoot();
+                canShoot = true;
 
                 timer = 0f;
             }
+
+            if (canShoot)
+                (GameWorld as GameWorld).ArcherShoot();
 
             base.Update(gameTime);
         }
@@ -78,6 +82,12 @@ namespace InsaneKillerArcher
         {
             get { return damage; }
             set { damage = value; }
+        }
+
+        public bool CanShoot
+        {
+            get { return canShoot; }
+            set { canShoot = value; }
         }
     }
 }

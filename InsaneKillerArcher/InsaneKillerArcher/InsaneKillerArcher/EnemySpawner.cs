@@ -64,7 +64,7 @@ namespace InsaneKillerArcher
                     switch(enemyType)
                     {
                         case 0:
-                            Add(new Enemy("spr_enemy_strip2@2x1", "spr_enemy_dead_strip5@5x1", "spr_enemy_fight_strip2@2x1", random.Next(enemyDropMin, enemyDropMax)));
+                            Add(new Enemy("spr_enemy_strip2@2x1", "spr_enemy_dead_strip5@5x1", "spr_enemy_fight_strip2@2x1", 0.5f, random.Next(enemyDropMin, enemyDropMax)));
                             break;
                         case 1:
                             Add(new Troll("spr_troll_walking_strip9@9x1", "spr_troll_attacking_strip5@5x1", "spr_troll_attacking_strip5@5x1", random.Next(trollDropMin, trollDropMax)));
