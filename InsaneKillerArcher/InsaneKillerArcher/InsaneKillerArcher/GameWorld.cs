@@ -24,8 +24,9 @@ namespace InsaneKillerArcher
         private GameObjectList groundList;
         private SpriteGameObject ground;
         private Player player;
-        private Archer archer;
+
         private Catapult catapult;
+
         private GameObjectList archers;
         private GameObjectList arrows;
         private GameObjectList archerArrows;
@@ -244,8 +245,8 @@ namespace InsaneKillerArcher
                 {
                     if (zeppelin.CollidesWith(archerArrows.Objects[i] as Arrow))
                     {
+                        zeppelin.Health -= (archerArrows.Objects[i] as Arrow).damage;
                         archerArrows.Remove(archerArrows.Objects[i]);
-                        zeppelin.Health -= archer.Damage;
                     }
                 }
             }
@@ -398,21 +399,30 @@ namespace InsaneKillerArcher
             //index of object with shortest length
             int y = 50;
 
+            Vector2 archerPosition = Vector2.Zero;
+
             for (int i = 0; i < enemySpawner.Objects.Count; i++)
             {
-                float length = (enemySpawner.Objects[i].Position - archer.Position).Length();
-                if (length < x)
+                foreach (Archer archer in archers.Objects)
                 {
-                    x = length;
-                    y = i;
+                    float length = (enemySpawner.Objects[i].Position - archer.Position).Length();
+                    if (length < x)
+                    {
+                        x = length;
+                        y = i;
+                        archerPosition = archer.Position;
+                    }
                 }
             }
 
-            float adjacent = (enemySpawner.Objects[y].Position.X - archer.Position.X) * 0.3f;
-            float opposite = -(enemySpawner.Objects[y].Position.Y - archer.Position.Y) * 1.5f;
+            if (archerPosition != Vector2.Zero)
+            {
+                float adjacent = (enemySpawner.Objects[y].Position.X - archerPosition.X) * 0.3f;
+                float opposite = -(enemySpawner.Objects[y].Position.Y - archerPosition.Y) * 1.5f;
 
-            CatapultBoulder boulder = new CatapultBoulder(catapult.Position, new Vector2(adjacent, opposite));
-            catapultBoulders.Add(boulder);
+                CatapultBoulder boulder = new CatapultBoulder(catapult.Position, new Vector2(adjacent, opposite));
+                catapultBoulders.Add(boulder);
+            }
         }
 
         /// <summary>
