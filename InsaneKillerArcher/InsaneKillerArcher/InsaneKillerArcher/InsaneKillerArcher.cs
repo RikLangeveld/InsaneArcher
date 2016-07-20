@@ -26,7 +26,7 @@ namespace InsaneKillerArcher
         {
             Content.RootDirectory = "Content";
 
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
 
             // zet de buffer hoogte naar 1080 en breedte naar 1920
             graphics.PreferredBackBufferWidth = 1920;

@@ -287,17 +287,34 @@ namespace InsaneKillerArcher
             {
                 foreach (SpriteGameObject ground in groundList.Objects)
                 {
-                    
-                    if (ground.CollidesWith(boulder) && !boulder.FirstBounce)
+
+                    if (ground.CollidesWith(boulder))
                     {
-                        boulder.FirstBounce = true;
-                        boulder.Bounce();
+                        boulder.Bounce(ground.Position.Y);
+                    }
+                }
+
+                foreach (Zeppelin zeppelin in zeppelinSpawner.Objects)
+                {
+                    if (boulder.CollidesWith(zeppelin))
+                    {
+                        zeppelin.Health -= 100;
+                        boulder.Visible = false;
+                    }
+                }
+
+                foreach (Enemy enemy in enemySpawner.Objects)
+                {
+                    if (boulder.CollidesWith(enemy))
+                    {
+                        enemy.Health -= 100;
+                        boulder.Visible = false;
                     }
                 }
             }
 
-            // cooldown voor het schieten staat hier.
-            if (!canShoot)
+                // cooldown voor het schieten staat hier.
+                if (!canShoot)
             {
                 shootCooldownTimer += (float)gameTime.ElapsedGameTime.Milliseconds;
 
@@ -401,8 +418,6 @@ namespace InsaneKillerArcher
                 //index of object with shortest length
                 int y = 0;
 
-                Vector2 archerPosition = Vector2.Zero;
-
                 for (int i = 0; i < enemySpawner.Objects.Count; i++)
                 {
                     foreach (Archer archer in archers.Objects)
@@ -412,7 +427,6 @@ namespace InsaneKillerArcher
                         {
                             x = length;
                             y = i;
-                            archerPosition = archer.Position;
                         }
                     }
 
@@ -421,7 +435,7 @@ namespace InsaneKillerArcher
                     float adjacent = distanceVector.X * 0.3f;
                     float opposite = -distanceVector.Y * 1.5f;
 
-                    CatapultBoulder boulder = new CatapultBoulder(catapult.Position, new Vector2(adjacent, opposite));
+                    CatapultBoulder boulder = new CatapultBoulder(new Vector2 (catapult.Position.X, catapult.Position.Y - 32), new Vector2(adjacent, opposite));
                     catapultBoulders.Add(boulder);
                 }
             }
