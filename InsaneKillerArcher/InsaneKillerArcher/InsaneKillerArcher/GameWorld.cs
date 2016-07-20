@@ -386,6 +386,9 @@ namespace InsaneKillerArcher
 
                     Vector2 direction = new Vector2(newAdjacent, newOpposite);
                     Vector2 directionNormal = Vector2.Normalize(direction);
+
+                    Arrow arrow = new Arrow(archerPosition, directionNormal, arrowSpeed, direction);
+                    archerArrows.Add(arrow);
                 }
             }
         }
@@ -421,8 +424,8 @@ namespace InsaneKillerArcher
                     float adjacent = distanceVector.X * 0.3f;
                     float opposite = -distanceVector.Y * 1.5f;
 
-                    CatapultBoulder boulder = new CatapultBoulder(catapult.Position, new Vector2(adjacent, opposite));
-                    catapultBoulders.Add(boulder);
+                    //CatapultBoulder boulder = new CatapultBoulder(catapult.Position, new Vector2(adjacent, opposite));
+                    //catapultBoulders.Add(boulder);
                 }
             }
         }
