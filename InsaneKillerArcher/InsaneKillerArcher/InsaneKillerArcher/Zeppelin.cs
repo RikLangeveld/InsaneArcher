@@ -12,7 +12,7 @@ namespace InsaneKillerArcher
         public Zeppelin(string moveAnim, string deadAnim, string attackAnim, int moneyDrop) : base(moveAnim, deadAnim, attackAnim, 3f, moneyDrop)
         {
             startPosition = new Vector2(InsaneKillerArcher.Screen.X + 100,
-                GameEnvironment.Random.Next(InsaneKillerArcher.Screen.Y - 750, InsaneKillerArcher.Screen.Y - 300));
+                GameEnvironment.Random.Next(InsaneKillerArcher.Screen.Y - 600, InsaneKillerArcher.Screen.Y - 300));
 
             position = startPosition;
 
