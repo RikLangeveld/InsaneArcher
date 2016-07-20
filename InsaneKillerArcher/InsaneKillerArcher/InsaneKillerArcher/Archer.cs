@@ -9,8 +9,8 @@ namespace InsaneKillerArcher
 {
     class Archer : GameObjectList
     {
-        SpriteGameObject body;
-        SpriteGameObject weapon;
+        public SpriteGameObject body;
+        public SpriteGameObject weapon;
 
         private float angle;
         private float damage;
@@ -60,8 +60,12 @@ namespace InsaneKillerArcher
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            body.Draw(gameTime, spriteBatch);
-            spriteBatch.Draw(weapon.Sprite.Sprite, weapon.GlobalPosition, null, Color.White, angle, weapon.Origin, 1.0f, SpriteEffects.None, 0);
+            if (visible)
+            {
+                body.Draw(gameTime, spriteBatch);
+                spriteBatch.Draw(weapon.Sprite.Sprite, weapon.GlobalPosition, null, Color.White, angle, weapon.Origin, 1.0f, SpriteEffects.None, 0);
+            }
+
         }
         
         public float Angle

@@ -13,6 +13,8 @@ namespace InsaneKillerArcher
 
         private int castleLevel = 0;
         private Dictionary<Vector2, bool> archerPositions;
+        private Dictionary<Vector2, Archer> archerObjects;
+
         private Dictionary<Vector2, bool> catapultPositions;
         private Dictionary<Vector2, SpriteGameObject> catapultObjects;
 
@@ -52,6 +54,8 @@ namespace InsaneKillerArcher
 
 
             archerPositions = new Dictionary<Vector2, bool>();
+            archerObjects = new Dictionary<Vector2, Archer>();
+
             catapultPositions = new Dictionary<Vector2, bool>();
             catapultObjects = new Dictionary<Vector2 , SpriteGameObject>();
 
@@ -64,7 +68,7 @@ namespace InsaneKillerArcher
             Add(castlePart2);
             Add(MakeCatapult(new Vector2(142, 950)));
             Add(castlePart1);
-
+            Add(MakeArcher(new Vector2(91, 917)));
             Add(mainCastle);
         }
 
@@ -121,6 +125,13 @@ namespace InsaneKillerArcher
             catapultObjects[key].Visible = true;
         }
 
+        public void makeArcherVisible(Vector2 key)
+        {
+            archerObjects[key].Visible = true;
+            archerObjects[key].body.Visible = true;
+            archerObjects[key].weapon.Visible = true;
+        }
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
@@ -146,6 +157,17 @@ namespace InsaneKillerArcher
             catapultObjects.Add(position, catapult);
             catapult.Visible = false;
             return catapult;
+        }
+
+        public Archer MakeArcher(Vector2 position)
+        {
+            Archer archer = new Archer(position);
+            archerPositions.Add(position, false);
+            archerObjects.Add(position, archer);
+            archer.Visible = false;
+            archer.body.Visible = false;
+            archer.weapon.Visible = false;
+            return archer;
         }
 
         public void CheckForUpgrades()
@@ -176,6 +198,16 @@ namespace InsaneKillerArcher
         {
             get { return askForCatapults; }
             set { askForCatapults = value; }
+        }
+
+        public Dictionary<Vector2, SpriteGameObject> CatapultObjects
+        {
+            get { return catapultObjects; }
+        }
+
+        public Dictionary<Vector2, Archer> ArcherObjects
+        {
+            get { return archerObjects; }
         }
     }
 }

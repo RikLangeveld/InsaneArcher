@@ -223,7 +223,7 @@ namespace InsaneKillerArcher
                             Console.WriteLine(newArcherPosition);
                             if (newArcherPosition != Vector2.Zero)
                             {
-                                archers.Add(new Archer(newArcherPosition));
+                                castle.makeArcherVisible(newArcherPosition);
                             }
                         }
                         upgrade.IsActive = false;
@@ -410,14 +410,14 @@ namespace InsaneKillerArcher
 
                 for (int i = 0; i < enemySpawner.Objects.Count; i++)
                 {
-                    foreach (Archer archer in archers.Objects)
+                    foreach (var archer in castle.ArcherObjects)
                     {
-                        float length = (enemySpawner.Objects[i].Position - archer.Position).Length();
+                        float length = (enemySpawner.Objects[i].Position - castle.ArcherObjects[archer.Key].Position).Length();
                         if (length < x)
                         {
                             x = length;
                             y = i;
-                            archerPosition = archer.Position;
+                            archerPosition = castle.ArcherObjects[archer.Key].Position;
                         }
                     }
                 }
@@ -452,18 +452,17 @@ namespace InsaneKillerArcher
 
                 Vector2 catapultPosition = Vector2.Zero;
 
-
                 for (int i = 0; i < enemySpawner.Objects.Count; i++)
                 {
-                    foreach (Catapult catapult in catapults.Objects)
-                    {
-                        float length = (enemySpawner.Objects[i].Position - catapult.Position).Length();
+                    foreach (var catapult in castle.CatapultObjects) { 
+                        
+                        float length = (enemySpawner.Objects[i].Position - castle.CatapultObjects[catapult.Key].Position).Length();
                         if (length < x)
                         {
                             x = length;
                             y = i;
 
-                            catapultPosition = catapult.Position;
+                            catapultPosition = castle.CatapultObjects[catapult.Key].Position;
                         }
                     }
 
