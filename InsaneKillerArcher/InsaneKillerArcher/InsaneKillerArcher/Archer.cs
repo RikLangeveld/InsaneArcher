@@ -17,7 +17,6 @@ namespace InsaneKillerArcher
 
         private float shootDelay;
         private float timer;
-        private bool canShoot = false;
 
         public Archer(Vector2 newPos)
         {
@@ -35,7 +34,7 @@ namespace InsaneKillerArcher
             angle = 0.0f;
             damage = 25.0f;
 
-            shootDelay = 1.0f;
+            shootDelay = 2.0f;
             timer = 0.0f;
 
             position = newPos;
@@ -48,16 +47,13 @@ namespace InsaneKillerArcher
         public override void Update(GameTime gameTime)
         {
             timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            
+
             if (timer > shootDelay)
             {
-                canShoot = true;
+                Shoot();
 
                 timer = 0f;
             }
-
-            if (canShoot)
-                (GameWorld as GameWorld).ArcherShoot();
 
             base.Update(gameTime);
         }
@@ -71,7 +67,44 @@ namespace InsaneKillerArcher
             }
 
         }
-        
+
+        public void Shoot()
+        {
+            var gameWorld = GameWorld as GameWorld;
+            if (gameWorld.EnemySpawner.Objects.Count > 0)
+            {
+                //Shortest length
+                float x = 99999;
+                //index of object with shortest length
+                int y = 0;
+
+                if (Visible)
+                {
+                    for (int i = 0; i < gameWorld.EnemySpawner.Objects.Count; i++)
+                    {
+                        float length = (gameWorld.EnemySpawner.Objects[i].Position - position).Length();
+                        if (length < x)
+                        {
+                            x = length;
+                            y = i;
+                        }
+                    }
+
+                    float adjacent = (gameWorld.EnemySpawner.Objects[y].Position.X - position.X) * 1.2f;
+                    float opposite = -(gameWorld.EnemySpawner.Objects[y].Position.Y - position.Y);
+
+                    float newAdjacent = GameEnvironment.Random.Next((int)(adjacent - 50), (int)(adjacent + 50));
+                    float newOpposite = GameEnvironment.Random.Next((int)(opposite - 50), (int)(opposite + 50));
+
+                    Vector2 direction = new Vector2(newAdjacent, newOpposite);
+                    Vector2 directionNormal = Vector2.Normalize(direction);
+
+                    Arrow arrow = new Arrow(position, directionNormal, 300, direction);
+                    gameWorld.ArcherArrows.Add(arrow);
+                }
+            }
+        }
+
         public float Angle
         {
             get { return angle; }
@@ -82,12 +115,6 @@ namespace InsaneKillerArcher
         {
             get { return damage; }
             set { damage = value; }
-        }
-
-        public bool CanShoot
-        {
-            get { return canShoot; }
-            set { canShoot = value; }
         }
     }
 }

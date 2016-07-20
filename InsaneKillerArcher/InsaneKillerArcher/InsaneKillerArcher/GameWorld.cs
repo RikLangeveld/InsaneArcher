@@ -400,100 +400,9 @@ namespace InsaneKillerArcher
             Vector2 direction = new Vector2(playerPositionX, playerPositionY);
             Vector2 directionNormal = Vector2.Normalize(direction);
 
-            Arrow arrow = new Arrow( player.Position, directionNormal, arrowSpeed, direction);
+            Arrow arrow = new Arrow(player.Position, directionNormal, arrowSpeed, direction);
 
             arrows.Add(arrow);
-        }
-
-        public void ArcherShoot()
-        {
-            if (enemySpawner.Objects.Count > 0)
-            {
-                //Shortest length
-                float x = 99999;
-                //index of object with shortest length
-                int y = 0;
-
-                Vector2 archerPosition = Vector2.Zero;
-
-                foreach (var archer in castle.ArcherObjects)
-                {
-                    if (castle.ArcherObjects[archer.Key].Visible)
-                    {
-                        for (int i = 0; i < enemySpawner.Objects.Count; i++)
-                        {
-                            float length = (enemySpawner.Objects[i].Position - castle.ArcherObjects[archer.Key].Position).Length();
-                            if (length < x)
-                            {
-                                x = length;
-                                y = i;
-                                archerPosition = castle.ArcherObjects[archer.Key].Position;
-                            }
-                        }
-
-                        if (archerPosition != Vector2.Zero)
-                        {
-                            float adjacent = (enemySpawner.Objects[y].Position.X - archerPosition.X) * 1.2f;
-                            float opposite = -(enemySpawner.Objects[y].Position.Y - archerPosition.Y);
-
-                            float newAdjacent = random.Next((int)(adjacent - 50), (int)(adjacent + 50));
-                            float newOpposite = random.Next((int)(opposite - 50), (int)(opposite + 50));
-
-                            Vector2 direction = new Vector2(newAdjacent, newOpposite);
-                            Vector2 directionNormal = Vector2.Normalize(direction);
-
-                            Arrow arrow = new Arrow(archerPosition, directionNormal, arrowSpeed, direction);
-                            archerArrows.Add(arrow);
-
-                            castle.ArcherObjects[archer.Key].CanShoot = false;
-                        }
-                    }
-                }
-            }
-        }
-
-
-        public void CatapultShoot()
-        {
-            if (enemySpawner.Objects.Count > 0)
-            {
-                //Shortest length
-                float x = 99999;
-
-                //index of object with shortest length
-                int y = 0;
-
-                Vector2 catapultPosition = Vector2.Zero;
-
-                foreach (var catapult in castle.CatapultObjects)
-                {
-                    if (castle.CatapultObjects[catapult.Key].Visible)
-                    {
-                        for (int i = 0; i < enemySpawner.Objects.Count; i++)
-                        {
-                            float length = (enemySpawner.Objects[i].Position - castle.CatapultObjects[catapult.Key].Position).Length();
-                            if (length < x)
-                            {
-                                x = length;
-                                y = i;
-
-                                catapultPosition = castle.CatapultObjects[catapult.Key].Position;
-                            }
-                        }
-
-                        if (catapultPosition != Vector2.Zero)
-                        {
-                            Vector2 distanceVector = enemySpawner.Objects[y].Position - catapultPosition;
-
-                            float adjacent = distanceVector.X * 0.3f;
-                            float opposite = -distanceVector.Y * 1.5f;
-
-                            CatapultBoulder boulder = new CatapultBoulder(new Vector2(catapultPosition.X, catapultPosition.Y - 32), new Vector2(adjacent, opposite));
-                            catapultBoulders.Add(boulder);
-                        }
-                    }
-                }
-            }
         }
 
         /// <summary>
@@ -558,6 +467,21 @@ namespace InsaneKillerArcher
         public EnemySpawner EnemySpawner
         {
             get { return enemySpawner; }
+        }
+
+        public Castle Castle
+        {
+            get { return castle; }
+        }
+
+        public GameObjectList ArcherArrows
+        {
+            get { return archerArrows; }
+        }
+
+        public GameObjectList CatapultBoulders
+        {
+            get { return catapultBoulders; }
         }
     }
 }

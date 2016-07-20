@@ -53,7 +53,7 @@ namespace InsaneKillerArcher
 
                 if (canShoot)
                 {
-                    (GameWorld as GameWorld).CatapultShoot();
+                    Shoot();
                     canShoot = false;
                 }
 
@@ -69,6 +69,41 @@ namespace InsaneKillerArcher
             }
             
             base.Update(gameTime);
+        }
+
+        public void Shoot()
+        {
+            var gameWorld = GameWorld as GameWorld;
+
+            if (gameWorld.EnemySpawner.Objects.Count > 0)
+            {
+                //Shortest length
+                float x = 99999;
+
+                //index of object with shortest length
+                int y = 0;
+
+                if (Visible)
+                {
+                    for (int i = 0; i < gameWorld.EnemySpawner.Objects.Count; i++)
+                    {
+                        float length = (gameWorld.EnemySpawner.Objects[i].Position - Position).Length();
+                        if (length < x)
+                        {
+                            x = length;
+                            y = i;
+                        }
+                    }
+
+                    Vector2 distanceVector = gameWorld.EnemySpawner.Objects[y].Position - position;
+
+                    float adjacent = distanceVector.X * 0.3f;
+                    float opposite = -distanceVector.Y * 1.5f;
+
+                    CatapultBoulder boulder = new CatapultBoulder(new Vector2(position.X, position.Y - 32), new Vector2(adjacent, opposite));
+                    gameWorld.CatapultBoulders.Add(boulder);
+                }
+            }
         }
 
         public float Damage
