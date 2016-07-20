@@ -89,13 +89,17 @@ namespace InsaneKillerArcher
         {
 
             foreach (Enemy enemy in enemySpawner.Objects)
-            {
-
-                if(enemy.CollidesWith(castle))
+            { 
+                if (enemy.CollidesWith(castle))
                 {
                     if (enemy.Health > 0)
                     {
                         enemy.Idle();
+
+                        if (enemy.GetType().Equals(typeof(Bat)))
+                        {
+                            enemy.Health = 0;
+                        }
                     }
                 }
 
