@@ -35,6 +35,7 @@ namespace InsaneKillerArcher
             upgrades.Add(castleUpgrade);
             upgrades.Add(archerUpgrade);
 
+            Add(new SpriteGameObject("store_background"));
             Add(overheadArrows);
             Add(rollingBoulder);
             Add(boilingOil);
