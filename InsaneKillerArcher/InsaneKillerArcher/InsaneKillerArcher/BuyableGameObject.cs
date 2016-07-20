@@ -32,7 +32,7 @@ namespace InsaneKillerArcher
             base.position = position;
         }
 
-        public void upgradeLevel()
+        public void UpgradeLevel()
         {
             level++;
             isActive = true;

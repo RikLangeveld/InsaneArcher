@@ -53,7 +53,7 @@ namespace InsaneKillerArcher
             base.Update(gameTime);
         }
 
-        public void killEnemy()
+        public void KillEnemy()
         {
             health = 0;
         }
@@ -79,7 +79,7 @@ namespace InsaneKillerArcher
             attacking = false;
         }
 
-        public bool shouldDeleteEnemy()
+        public bool ShouldDeleteEnemy()
         {
             return animations["dead"].AnimationEnded;
         }

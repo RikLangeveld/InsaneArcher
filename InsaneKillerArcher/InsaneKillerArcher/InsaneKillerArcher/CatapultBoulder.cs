@@ -15,7 +15,7 @@ namespace InsaneKillerArcher
 
         public CatapultBoulder(Vector2 position, Vector2 velocity) : base(0, "CatapultBoulder", new Dictionary<string, string>(), new Dictionary<string, Animation>(), position, velocity)
         {
-            addAnimation("spr_bolder_25p@4x4", "flying", true);
+            AddAnimation("spr_bolder_25p@4x4", "flying", true);
 
             PlayAnimation("flying");
         }

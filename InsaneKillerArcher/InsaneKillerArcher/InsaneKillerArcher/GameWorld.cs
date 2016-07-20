@@ -100,7 +100,7 @@ namespace InsaneKillerArcher
                     enemy.EnemyDead();
 
                 //Als de enemy verwijderd moet worden, wordt de sprite onzichtbaar gemaakt. Hierna wordt deze verwijderd in de EnemySpawner class.
-                if (enemy.shouldDeleteEnemy())
+                if (enemy.ShouldDeleteEnemy())
                     enemy.Visible = false;
 
                 if (enemy.Attack)
@@ -190,7 +190,7 @@ namespace InsaneKillerArcher
                 {
                     castle.CastleLevel++;
 
-                    castle.checkForUpgrades();
+                    castle.CheckForUpgrades();
 
                     upgrade.IsActive = false;
                 }

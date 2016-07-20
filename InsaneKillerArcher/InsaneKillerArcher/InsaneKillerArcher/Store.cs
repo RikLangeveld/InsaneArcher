@@ -55,42 +55,42 @@ namespace InsaneKillerArcher
                 InsaneKillerArcher.GameStateManager.SwitchTo("playingState");
             }
             
-            if(mouseOver(inputHelper.MousePosition, overheadArrows) && inputHelper.MouseLeftButtonPressed()) {
+            if(MouseOver(inputHelper.MousePosition, overheadArrows) && inputHelper.MouseLeftButtonPressed()) {
                 overheadArrows.IsActive = true;
             }
 
-            if (mouseOver(inputHelper.MousePosition, rollingBoulder) && inputHelper.MouseLeftButtonPressed())
+            if (MouseOver(inputHelper.MousePosition, rollingBoulder) && inputHelper.MouseLeftButtonPressed())
             {
                 rollingBoulder.IsActive = true;
             }
 
-            if (mouseOver(inputHelper.MousePosition, boilingOil) && inputHelper.MouseLeftButtonPressed())
+            if (MouseOver(inputHelper.MousePosition, boilingOil) && inputHelper.MouseLeftButtonPressed())
             {
                 boilingOil.IsActive = true;
             }
 
-            if (mouseOver(inputHelper.MousePosition, castleUpgrade) && inputHelper.MouseLeftButtonPressed())
+            if (MouseOver(inputHelper.MousePosition, castleUpgrade) && inputHelper.MouseLeftButtonPressed())
             {
                 if (castleUpgrade.Level <= 1)
                 {
-                    castleUpgrade.upgradeLevel();
+                    castleUpgrade.UpgradeLevel();
                 }
             }
 
-            if (mouseOver(inputHelper.MousePosition, archerUpgrade) && inputHelper.MouseLeftButtonPressed())
+            if (MouseOver(inputHelper.MousePosition, archerUpgrade) && inputHelper.MouseLeftButtonPressed())
             {
-                archerUpgrade.upgradeLevel();
+                archerUpgrade.UpgradeLevel();
             }
 
-            if (mouseOver(inputHelper.MousePosition, catapultUpgrade) && inputHelper.MouseLeftButtonPressed())
+            if (MouseOver(inputHelper.MousePosition, catapultUpgrade) && inputHelper.MouseLeftButtonPressed())
             {
-                catapultUpgrade.upgradeLevel();
+                catapultUpgrade.UpgradeLevel();
             }
 
             base.HandleInput(inputHelper);
         }
 
-        public bool mouseOver(Vector2 mousePosition, SpriteGameObject icon)
+        public bool MouseOver(Vector2 mousePosition, SpriteGameObject icon)
         {
             return mousePosition.X >= icon.Position.X
                 && mousePosition.X <= icon.Position.X + icon.Width

@@ -89,7 +89,7 @@ namespace InsaneKillerArcher
 
         }
 
-        public void checkForUpgrades()
+        public void CheckForUpgrades()
         {
             if (castleLevel == 1)
             {
