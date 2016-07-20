@@ -18,6 +18,7 @@ namespace InsaneKillerArcher
 
         private float arrowSpeed = 300;
 
+        private StatusBar statusBar;
         private EnemySpawner enemySpawner;
         private EnemySpawner zeppelinSpawner;
         private Castle castle;
@@ -38,7 +39,9 @@ namespace InsaneKillerArcher
         {
             //laat bovenaan staan, is aleen de achtergrond.
             Add(new SpriteGameObject("background"));
-            Add(new SpriteGameObject("spr_bar"));
+
+            statusBar = new StatusBar();
+            Add(statusBar);
 
             castle = new Castle();
             groundList = new GameObjectList();
@@ -64,8 +67,8 @@ namespace InsaneKillerArcher
             Add(archers);
             Add(catapults);
 
-            enemySpawner = new EnemySpawner(2f, EnemySpawner.EnemyType.Enemy);
-            zeppelinSpawner = new EnemySpawner(20f, EnemySpawner.EnemyType.Zeppelin);
+            enemySpawner = new EnemySpawner(2, 5, EnemyType.Enemy);
+            zeppelinSpawner = new EnemySpawner(10, 20, EnemyType.Zeppelin);
 
             arrows = new GameObjectList();
             archerArrows = new GameObjectList();
@@ -87,18 +90,24 @@ namespace InsaneKillerArcher
         {
 
             foreach (Enemy enemy in enemySpawner.Objects)
+
             {
 
                 if(enemy.CollidesWith(castle.mainCastle))
                 {
                     if (enemy.Health > 0)
                     {
-                        enemy.EnemyIdle();
+                        enemy.Idle();
+
+                        if (enemy.GetType().Equals(typeof(Bat)))
+                        {
+                            enemy.Health = 0;
+                        }
                     }
                 }
 
                 if (enemy.Health <= 0)
-                    enemy.EnemyDead();
+                    enemy.Dead();
 
                 //Als de enemy verwijderd moet worden, wordt de sprite onzichtbaar gemaakt. Hierna wordt deze verwijderd in de EnemySpawner class.
                 if (enemy.ShouldDeleteEnemy())
@@ -451,22 +460,19 @@ namespace InsaneKillerArcher
                             y = i;
 
                             catapultPosition = catapult.Position;
-
                         }
                     }
+
                     if (catapultPosition != Vector2.Zero)
                     {
-
                         Vector2 distanceVector = enemySpawner.Objects[y].Position - catapultPosition;
 
                         float adjacent = distanceVector.X * 0.3f;
                         float opposite = -distanceVector.Y * 1.5f;
 
+                        CatapultBoulder boulder = new CatapultBoulder(new Vector2(catapultPosition.X, catapultPosition.Y - 32), new Vector2(adjacent, opposite));
+                        catapultBoulders.Add(boulder);
                     }
-
-                   //CatapultBoulder boulder = new CatapultBoulder(new Vector2 (catapult.Position.X, catapult.Position.Y - 32), new Vector2(adjacent, opposite));
-                   //catapultBoulders.Add(boulder);
-
                 }
             }
         }

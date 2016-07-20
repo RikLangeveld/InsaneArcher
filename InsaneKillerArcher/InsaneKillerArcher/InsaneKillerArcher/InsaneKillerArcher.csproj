@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Archer.cs" />
     <Compile Include="Arrow.cs" />
+    <Compile Include="Bat.cs" />
     <Compile Include="Boulder.cs" />
     <Compile Include="BuyableGameObject.cs" />
     <Compile Include="Castle.cs" />
@@ -75,7 +76,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="InsaneKillerArcher.cs" />
+    <Compile Include="StatusBar.cs" />
     <Compile Include="Store.cs" />
+    <Compile Include="Troll.cs" />
     <Compile Include="Zeppelin.cs" />
   </ItemGroup>
   <ItemGroup>
