@@ -64,33 +64,38 @@ namespace InsaneKillerArcher
             }
             
             if(MouseOver(inputHelper.MousePosition, overheadArrows) && inputHelper.MouseLeftButtonPressed()) {
+                InsaneKillerArcher.AssetManager.PlaySound("buy_shit");
                 overheadArrows.IsActive = true;
             }
 
             if (MouseOver(inputHelper.MousePosition, rollingBoulder) && inputHelper.MouseLeftButtonPressed())
             {
+                InsaneKillerArcher.AssetManager.PlaySound("buy_shit");
                 rollingBoulder.IsActive = true;
             }
 
             if (MouseOver(inputHelper.MousePosition, boilingOil) && inputHelper.MouseLeftButtonPressed())
             {
+                InsaneKillerArcher.AssetManager.PlaySound("buy_shit");
                 boilingOil.IsActive = true;
             }
 
             if (MouseOver(inputHelper.MousePosition, castleUpgrade) && inputHelper.MouseLeftButtonPressed())
             {
-
-                    castleUpgrade.UpgradeLevel();
+                InsaneKillerArcher.AssetManager.PlaySound("buy_shit");
+                castleUpgrade.UpgradeLevel();
 
             }
 
             if (MouseOver(inputHelper.MousePosition, archerUpgrade) && inputHelper.MouseLeftButtonPressed())
             {
+                InsaneKillerArcher.AssetManager.PlaySound("buy_shit");
                 archerUpgrade.UpgradeLevel();
             }
 
             if (MouseOver(inputHelper.MousePosition, catapultUpgrade) && inputHelper.MouseLeftButtonPressed())
             {
+                InsaneKillerArcher.AssetManager.PlaySound("buy_shit");
                 catapultUpgrade.UpgradeLevel();
             }
 
