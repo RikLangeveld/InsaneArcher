@@ -452,18 +452,17 @@ namespace InsaneKillerArcher
 
                 Vector2 catapultPosition = Vector2.Zero;
 
-
                 for (int i = 0; i < enemySpawner.Objects.Count; i++)
                 {
-                    foreach (Catapult catapult in catapults.Objects)
-                    {
-                        float length = (enemySpawner.Objects[i].Position - catapult.Position).Length();
+                    foreach (var catapult in castle.CatapultObjects) { 
+                        
+                        float length = (enemySpawner.Objects[i].Position - castle.CatapultObjects[catapult.Key].Position).Length();
                         if (length < x)
                         {
                             x = length;
                             y = i;
 
-                            catapultPosition = catapult.Position;
+                            catapultPosition = castle.CatapultObjects[catapult.Key].Position;
                         }
                     }
 

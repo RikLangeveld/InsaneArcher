@@ -163,5 +163,10 @@ namespace InsaneKillerArcher
             get { return askForCatapults; }
             set { askForCatapults = value; }
         }
+
+        public Dictionary<Vector2, SpriteGameObject> CatapultObjects
+        {
+            get { return catapultObjects; }
+        }
     }
 }
