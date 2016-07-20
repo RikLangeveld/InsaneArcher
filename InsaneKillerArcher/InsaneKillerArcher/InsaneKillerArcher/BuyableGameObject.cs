@@ -13,7 +13,8 @@ namespace InsaneKillerArcher
         RollingBoulder,
         BoilingOil,
         CastleUpgrade,
-        ArcherUpgrade
+        ArcherUpgrade,
+        CatapultUpgrade
     }
 
     class BuyableGameObject : SpriteGameObject

@@ -17,6 +17,7 @@ namespace InsaneKillerArcher
 
         private BuyableGameObject castleUpgrade;
         private BuyableGameObject archerUpgrade;
+        private BuyableGameObject catapultUpgrade;
 
 
         public Store()
@@ -27,13 +28,15 @@ namespace InsaneKillerArcher
             boilingOil = new BuyableGameObject(100f, UpgradeType.BoilingOil, "spr_keuze_babarian", new Vector2(30, 440));
 
             castleUpgrade = new BuyableGameObject(100f, UpgradeType.CastleUpgrade, "spr_keuze_mage", new Vector2(235, 30));
-            archerUpgrade = new BuyableGameObject(100f, UpgradeType.ArcherUpgrade, "spr_keuze_boog", new Vector2(440, 40));
+            archerUpgrade = new BuyableGameObject(100f, UpgradeType.ArcherUpgrade, "spr_keuze_boog", new Vector2(440, 30));
+            catapultUpgrade = new BuyableGameObject(100f, UpgradeType.CatapultUpgrade, "catepult@1x1", new Vector2(645, 30));
 
             upgrades.Add(overheadArrows);
             upgrades.Add(rollingBoulder);
             upgrades.Add(boilingOil);
             upgrades.Add(castleUpgrade);
             upgrades.Add(archerUpgrade);
+            upgrades.Add(catapultUpgrade);
 
             Add(new SpriteGameObject("store_background"));
             Add(overheadArrows);
@@ -41,6 +44,7 @@ namespace InsaneKillerArcher
             Add(boilingOil);
             Add(castleUpgrade);
             Add(archerUpgrade);
+            Add(catapultUpgrade);
         }
 
         public override void HandleInput(InputHelper inputHelper)
@@ -77,7 +81,13 @@ namespace InsaneKillerArcher
             {
                 archerUpgrade.upgradeLevel();
             }
-                base.HandleInput(inputHelper);
+
+            if (mouseOver(inputHelper.MousePosition, catapultUpgrade) && inputHelper.MouseLeftButtonPressed())
+            {
+                catapultUpgrade.upgradeLevel();
+            }
+
+            base.HandleInput(inputHelper);
         }
 
         public bool mouseOver(Vector2 mousePosition, SpriteGameObject icon)
