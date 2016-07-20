@@ -45,7 +45,7 @@ namespace InsaneKillerArcher
         {
             float overlapY = 0;
 
-            InsaneKillerArcher.AssetManager.PlaySound("rock_hits_ground");
+            
 
             //De bounce werkt nog niet helemaal goed.
 

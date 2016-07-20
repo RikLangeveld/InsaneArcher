@@ -41,7 +41,7 @@ namespace InsaneKillerArcher
         public GameWorld()
         {
             //soundeffecten inladen
-            
+            InsaneKillerArcher.AssetManager.PlayMusic("background_music");
 
             //laat bovenaan staan, is aleen de achtergrond.
             Add(new SpriteGameObject("background"));
