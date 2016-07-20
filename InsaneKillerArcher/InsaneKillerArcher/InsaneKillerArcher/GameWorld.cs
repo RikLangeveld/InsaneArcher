@@ -376,6 +376,9 @@ namespace InsaneKillerArcher
 
                     Vector2 direction = new Vector2(newAdjacent, newOpposite);
                     Vector2 directionNormal = Vector2.Normalize(direction);
+                }
+            }
+        }
 
 
         public void CatapultShoot()

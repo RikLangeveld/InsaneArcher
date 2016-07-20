@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsaneKillerArcher", "Insan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsaneKillerArcherContent", "InsaneKillerArcher\InsaneKillerArcherContent\InsaneKillerArcherContent.contentproj", "{F5522657-0E05-4ACB-928F-480B62D3D798}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameManagement", "..\..\GameManagement\GameManagement.csproj", "{6CEB5F37-0BFA-4A0D-8DB7-B25ECD81CAAE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameManagement", "..\GameManagement\GameManagement.csproj", "{6CEB5F37-0BFA-4A0D-8DB7-B25ECD81CAAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
