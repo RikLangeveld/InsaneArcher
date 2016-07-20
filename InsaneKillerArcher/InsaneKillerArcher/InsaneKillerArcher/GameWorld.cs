@@ -223,7 +223,7 @@ namespace InsaneKillerArcher
                             Console.WriteLine(newArcherPosition);
                             if (newArcherPosition != Vector2.Zero)
                             {
-                                archers.Add(new Archer(newArcherPosition));
+                                castle.makeArcherVisible(newArcherPosition);
                             }
                         }
                         upgrade.IsActive = false;
