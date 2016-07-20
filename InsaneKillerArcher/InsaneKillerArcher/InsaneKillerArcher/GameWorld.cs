@@ -53,7 +53,8 @@ namespace InsaneKillerArcher
 
             
             player = new Player();
-            player.Position = new Vector2(50, InsaneKillerArcher.Screen.Y - castle.Height - player.Body.Height + 35);
+
+            player.Position = new Vector2(50, InsaneKillerArcher.Screen.Y - castle.mainCastle.Height - player.Body.Height + 35);
 
             catapultBoulders = new GameObjectList();
 
@@ -88,7 +89,7 @@ namespace InsaneKillerArcher
             foreach (Enemy enemy in enemySpawner.Objects)
             {
 
-                if(enemy.CollidesWith(castle))
+                if(enemy.CollidesWith(castle.mainCastle))
                 {
                     if (enemy.Health > 0)
                     {
@@ -228,6 +229,7 @@ namespace InsaneKillerArcher
                             if (newCatapultPosition != Vector2.Zero)
                             {
                                 catapults.Add(new Catapult(newCatapultPosition));
+                               // castle.makeCatapultVisible(newCatapultPosition);
                             }
                         }
                         upgrade.IsActive = false;
@@ -462,8 +464,8 @@ namespace InsaneKillerArcher
 
                     }
 
-                    CatapultBoulder boulder = new CatapultBoulder(new Vector2 (catapult.Position.X, catapult.Position.Y - 32), new Vector2(adjacent, opposite));
-                    catapultBoulders.Add(boulder);
+                   //CatapultBoulder boulder = new CatapultBoulder(new Vector2 (catapult.Position.X, catapult.Position.Y - 32), new Vector2(adjacent, opposite));
+                   //catapultBoulders.Add(boulder);
 
                 }
             }

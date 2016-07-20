@@ -6,15 +6,25 @@ using System.Text;
 
 namespace InsaneKillerArcher
 {
-    class Castle : SpriteGameObject
+    class Castle : GameObjectList
     {
+
+
         private int castleLevel = 0;
         private Dictionary<Vector2, bool> archerPositions;
         private Dictionary<Vector2, bool> catapultPositions;
+        private Dictionary<Vector2, SpriteGameObject> catapultObjects;
         private float health = 1000;
 
         private int askForArchers = 0;
         private int askForCatapults = 0;
+
+        public SpriteGameObject mainCastle;
+        private SpriteGameObject castlePart1;
+        private SpriteGameObject castlePart2;
+        private SpriteGameObject castlePart3;
+        private SpriteGameObject castlePart4;
+        private SpriteGameObject castlePart5;
 
         public float Health
         {
@@ -22,12 +32,31 @@ namespace InsaneKillerArcher
             set { health = value; }
         }
 
-        public Castle() : base("spr_castle")
+        public Castle() : base()
         {
-            Position = new Vector2(0, InsaneKillerArcher.Screen.Y - Height - 18);
+            mainCastle = new SpriteGameObject("spr_castle");
+            mainCastle.Position = new Vector2(0, InsaneKillerArcher.Screen.Y - mainCastle.Height - 18);
+
+            castlePart1 = new SpriteGameObject("spr_castle_medium_tower");
+            castlePart2 = new SpriteGameObject("spr_castle_tower");
+
+            castlePart1.Position = new Vector2(mainCastle.Position.X + 40, mainCastle.Position.Y - 115);
+            castlePart2.Position = new Vector2(mainCastle.Position.X, mainCastle.Position.Y - 40);
+
+            castlePart1.Visible = false;
+            castlePart2.Visible = false;
+
 
             archerPositions = new Dictionary<Vector2, bool>();
             catapultPositions = new Dictionary<Vector2, bool>();
+            catapultObjects = new Dictionary<Vector2 , SpriteGameObject>();
+
+            archerPositions.Add(new Vector2(91, 917), false);
+
+            Add(castlePart2);
+            Add(castlePart1);
+            catapultPositions.Add(new Vector2(142, 950), false);
+            Add(mainCastle);
         }
 
         public int CheckForArcherSpace()
@@ -78,6 +107,11 @@ namespace InsaneKillerArcher
             return Vector2.Zero;
         }
 
+        public void makeCatapultVisible(Vector2 key)
+        {
+            catapultObjects[key].Visible = true;
+        }
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
@@ -93,9 +127,11 @@ namespace InsaneKillerArcher
         {
             if (castleLevel == 1)
             {
-                archerPositions.Add(new Vector2(125, InsaneKillerArcher.Screen.Y - Height + 85), false);
-
-                catapultPositions.Add(new Vector2(200, InsaneKillerArcher.Screen.Y - Height + 85), false);
+                castlePart1.Visible = true;
+            }
+            else if (castleLevel == 2)
+            {
+                castlePart2.Visible = true;
             }
         }
 
