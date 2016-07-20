@@ -408,33 +408,36 @@ namespace InsaneKillerArcher
 
                 Vector2 archerPosition = Vector2.Zero;
 
-                for (int i = 0; i < enemySpawner.Objects.Count; i++)
+                foreach (var archer in castle.ArcherObjects)
                 {
-                    foreach (var archer in castle.ArcherObjects)
+                    if (castle.ArcherObjects[archer.Key].Visible)
                     {
-                        float length = (enemySpawner.Objects[i].Position - castle.ArcherObjects[archer.Key].Position).Length();
-                        if (length < x)
+                        for (int i = 0; i < enemySpawner.Objects.Count; i++)
                         {
-                            x = length;
-                            y = i;
-                            archerPosition = castle.ArcherObjects[archer.Key].Position;
+                            float length = (enemySpawner.Objects[i].Position - castle.ArcherObjects[archer.Key].Position).Length();
+                            if (length < x)
+                            {
+                                x = length;
+                                y = i;
+                                archerPosition = castle.ArcherObjects[archer.Key].Position;
+                            }
+                        }
+
+                        if (archerPosition != Vector2.Zero)
+                        {
+                            float adjacent = (enemySpawner.Objects[y].Position.X - archerPosition.X) * 1.2f;
+                            float opposite = -(enemySpawner.Objects[y].Position.Y - archerPosition.Y);
+
+                            float newAdjacent = random.Next((int)(adjacent - 50), (int)(adjacent + 50));
+                            float newOpposite = random.Next((int)(opposite - 50), (int)(opposite + 50));
+
+                            Vector2 direction = new Vector2(newAdjacent, newOpposite);
+                            Vector2 directionNormal = Vector2.Normalize(direction);
+
+                            Arrow arrow = new Arrow(archerPosition, directionNormal, arrowSpeed, direction);
+                            archerArrows.Add(arrow);
                         }
                     }
-                }
-
-                if (archerPosition != Vector2.Zero)
-                {
-                    float adjacent = (enemySpawner.Objects[y].Position.X - archerPosition.X) * 1.2f;
-                    float opposite = -(enemySpawner.Objects[y].Position.Y - archerPosition.Y);
-
-                    float newAdjacent = random.Next((int)(adjacent - 50), (int)(adjacent + 50));
-                    float newOpposite = random.Next((int)(opposite - 50), (int)(opposite + 50));
-
-                    Vector2 direction = new Vector2(newAdjacent, newOpposite);
-                    Vector2 directionNormal = Vector2.Normalize(direction);
-
-                    Arrow arrow = new Arrow(archerPosition, directionNormal, arrowSpeed, direction);
-                    archerArrows.Add(arrow);
                 }
             }
         }
@@ -452,29 +455,32 @@ namespace InsaneKillerArcher
 
                 Vector2 catapultPosition = Vector2.Zero;
 
-                for (int i = 0; i < enemySpawner.Objects.Count; i++)
+                foreach (var catapult in castle.CatapultObjects)
                 {
-                    foreach (var catapult in castle.CatapultObjects) { 
-                        
-                        float length = (enemySpawner.Objects[i].Position - castle.CatapultObjects[catapult.Key].Position).Length();
-                        if (length < x)
-                        {
-                            x = length;
-                            y = i;
-
-                            catapultPosition = castle.CatapultObjects[catapult.Key].Position;
-                        }
-                    }
-
-                    if (catapultPosition != Vector2.Zero)
+                    if (castle.CatapultObjects[catapult.Key].Visible)
                     {
-                        Vector2 distanceVector = enemySpawner.Objects[y].Position - catapultPosition;
+                        for (int i = 0; i < enemySpawner.Objects.Count; i++)
+                        {
+                            float length = (enemySpawner.Objects[i].Position - castle.CatapultObjects[catapult.Key].Position).Length();
+                            if (length < x)
+                            {
+                                x = length;
+                                y = i;
 
-                        float adjacent = distanceVector.X * 0.3f;
-                        float opposite = -distanceVector.Y * 1.5f;
+                                catapultPosition = castle.CatapultObjects[catapult.Key].Position;
+                            }
+                        }
 
-                        CatapultBoulder boulder = new CatapultBoulder(new Vector2(catapultPosition.X, catapultPosition.Y - 32), new Vector2(adjacent, opposite));
-                        catapultBoulders.Add(boulder);
+                        if (catapultPosition != Vector2.Zero)
+                        {
+                            Vector2 distanceVector = enemySpawner.Objects[y].Position - catapultPosition;
+
+                            float adjacent = distanceVector.X * 0.3f;
+                            float opposite = -distanceVector.Y * 1.5f;
+
+                            CatapultBoulder boulder = new CatapultBoulder(new Vector2(catapultPosition.X, catapultPosition.Y - 32), new Vector2(adjacent, opposite));
+                            catapultBoulders.Add(boulder);
+                        }
                     }
                 }
             }
