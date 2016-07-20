@@ -410,14 +410,14 @@ namespace InsaneKillerArcher
 
                 for (int i = 0; i < enemySpawner.Objects.Count; i++)
                 {
-                    foreach (Archer archer in archers.Objects)
+                    foreach (var archer in castle.ArcherObjects)
                     {
-                        float length = (enemySpawner.Objects[i].Position - archer.Position).Length();
+                        float length = (enemySpawner.Objects[i].Position - castle.ArcherObjects[archer.Key].Position).Length();
                         if (length < x)
                         {
                             x = length;
                             y = i;
-                            archerPosition = archer.Position;
+                            archerPosition = castle.ArcherObjects[archer.Key].Position;
                         }
                     }
                 }

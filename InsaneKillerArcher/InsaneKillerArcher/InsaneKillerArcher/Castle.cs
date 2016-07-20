@@ -186,5 +186,10 @@ namespace InsaneKillerArcher
         {
             get { return catapultObjects; }
         }
+
+        public Dictionary<Vector2, Archer> ArcherObjects
+        {
+            get { return archerObjects; }
+        }
     }
 }
