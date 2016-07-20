@@ -233,18 +233,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-
-    <Compile Include="rock_hits_ground.wav">
-      <Name>rock_hits_ground</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-
     <Compile Include="spr_troll_attacking_strip5%405x1.png">
       <Name>spr_troll_attacking_strip5%405x1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+  
+  
   <ItemGroup>
     <Compile Include="spr_troll_walking_strip9%409x1.png">
       <Name>spr_troll_walking_strip9%409x1</Name>
