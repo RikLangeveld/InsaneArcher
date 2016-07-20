@@ -465,7 +465,7 @@ namespace InsaneKillerArcher
 
                     }
 
-                    CatapultBoulder boulder = new CatapultBoulder(new Vector2 (catapult.Position.X, catapult.Position.Y - 32), new Vector2(adjacent, opposite));
+                    CatapultBoulder boulder = new CatapultBoulder(new Vector2 (catapultPosition.X, catapultPosition.Y - 32), new Vector2(adjacent, opposite));
                     catapultBoulders.Add(boulder);
 
                 }
