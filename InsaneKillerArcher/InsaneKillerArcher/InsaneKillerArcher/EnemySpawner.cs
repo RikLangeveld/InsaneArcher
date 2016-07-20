@@ -21,6 +21,8 @@ namespace InsaneKillerArcher
 
         private EnemyType type;
 
+        private Random random = new Random(); // For all your random needs :)
+
         /// <summary>
         /// Constructor van de EnemySpawner class
         /// </summary>
@@ -47,18 +49,28 @@ namespace InsaneKillerArcher
             {
                 if (type == EnemyType.Enemy)
                 {
+                    int enemyDropMin = 5;
+                    int enemyDropMax = 15;
+
+                    int trollDropMin = 10;
+                    int trollDropMax = 25;
+
+                    int batDropMin = 5;
+                    int batDropMax = 10;
+
+
                     int enemyType = GameEnvironment.Random.Next(3);
 
                     switch(enemyType)
                     {
                         case 0:
-                            Add(new Enemy("spr_enemy_strip2@2x1", "spr_enemy_dead_strip5@5x1", "spr_enemy_fight_strip2@2x1"));
+                            Add(new Enemy("spr_enemy_strip2@2x1", "spr_enemy_dead_strip5@5x1", "spr_enemy_fight_strip2@2x1", random.Next(enemyDropMin, enemyDropMax)));
                             break;
                         case 1:
-                            Add(new Troll("spr_troll_walking_strip9@9x1", "spr_troll_attacking_strip5@5x1", "spr_troll_attacking_strip5@5x1"));
+                            Add(new Troll("spr_troll_walking_strip9@9x1", "spr_troll_attacking_strip5@5x1", "spr_troll_attacking_strip5@5x1", random.Next(trollDropMin, trollDropMax)));
                             break;
                         case 2:
-                            Add(new Bat("spr_bat_flying_strip12@12x1", "spr_bat_flying_strip12@12x1", "spr_bat_flying_strip12@12x1"));
+                            Add(new Bat("spr_bat_flying_strip12@12x1", "spr_bat_flying_strip12@12x1", "spr_bat_flying_strip12@12x1", random.Next(batDropMin, batDropMax)));
                             break;
                     }
                 }

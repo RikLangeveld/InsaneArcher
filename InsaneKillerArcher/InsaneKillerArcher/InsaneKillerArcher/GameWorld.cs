@@ -107,7 +107,11 @@ namespace InsaneKillerArcher
                 }
 
                 if (enemy.Health <= 0)
+                {
+                    if(!enemy.IsDead) player.Money += enemy.MoneyDrop;
                     enemy.Dead();
+                }
+                    
 
                 //Als de enemy verwijderd moet worden, wordt de sprite onzichtbaar gemaakt. Hierna wordt deze verwijderd in de EnemySpawner class.
                 if (enemy.ShouldDeleteEnemy())
@@ -224,6 +228,7 @@ namespace InsaneKillerArcher
                             if (newArcherPosition != Vector2.Zero)
                             {
                                 castle.makeArcherVisible(newArcherPosition);
+                                return;
                             }
                         }
                         upgrade.IsActive = false;
@@ -358,7 +363,9 @@ namespace InsaneKillerArcher
             for (int i = gameObjects.Count - 1; i > 0; i--)
                 if (!gameObjects[i].Visible)
                     Remove(gameObjects[i]);
-            
+
+            statusBar.MoneyCount = player.Money;
+
             base.Update(gameTime);
         }
 

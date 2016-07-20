@@ -7,6 +7,8 @@ namespace InsaneKillerArcher
     {
         private bool attacking = false;
         private bool attack = false;
+        private int moneyDrop;
+        private bool isDead = false;
 
         protected Vector2 startPosition = new Vector2(InsaneKillerArcher.Screen.X + 100, InsaneKillerArcher.Screen.Y - 20);
         protected float movementSpeed = 100;
@@ -17,7 +19,7 @@ namespace InsaneKillerArcher
         private Dictionary<string, Animation> currentAnimations = new Dictionary<string, Animation>();
         private Dictionary<string, string> spriteNames = new Dictionary<string, string>();
 
-        public Enemy(string moveAnim, string deadAnim, string attackAnim) : base(0, "Enemy")
+        public Enemy(string moveAnim, string deadAnim, string attackAnim, int moneyDrop) : base(0, "Enemy")
         {
             spriteNames.Add("moving", moveAnim);
             spriteNames.Add("dead", deadAnim);
@@ -35,6 +37,8 @@ namespace InsaneKillerArcher
             position = startPosition;
 
             Moving();
+
+            this.moneyDrop = moneyDrop;
         }
 
         public override void Update(GameTime gameTime)
@@ -70,6 +74,7 @@ namespace InsaneKillerArcher
             velocity = Vector2.Zero;
             PlayAnimation("dead");
             attacking = false;
+            isDead = true;
         }
 
         public bool ShouldDeleteEnemy()
@@ -92,6 +97,16 @@ namespace InsaneKillerArcher
         {
             get { return attack; }
             set { attack = value; }
+        }
+
+        public float MoneyDrop
+        {
+            get { return moneyDrop; }
+        }
+
+        public bool IsDead
+        {
+            get { return isDead; }
         }
     }
 }

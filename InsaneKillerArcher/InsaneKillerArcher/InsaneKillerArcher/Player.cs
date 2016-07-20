@@ -11,6 +11,8 @@ namespace InsaneKillerArcher
         private PlayerBody body;
         private PlayerWeapon weapon;
 
+        private float money = 0;
+
         public Player()
         {
             body = new PlayerBody("spr_archer");
@@ -31,6 +33,12 @@ namespace InsaneKillerArcher
         public PlayerWeapon Weapon
         {
             get { return weapon; }
+        }
+
+        public float Money
+        {
+            get { return money; }
+            set { money = value; }
         }
     }
 }
