@@ -9,9 +9,6 @@ namespace InsaneKillerArcher
 {
     class Archer : GameObjectList
     {
-        //locks onto enemy
-        //10 px offset from enemy
-
         SpriteGameObject body;
         SpriteGameObject weapon;
 

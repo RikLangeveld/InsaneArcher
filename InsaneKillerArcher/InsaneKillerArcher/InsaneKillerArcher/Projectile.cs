@@ -31,7 +31,7 @@ namespace InsaneKillerArcher
             this.PlayAnimation(animationName);
         }
 
-        public void addAnimation(string spriteName, string animationName, bool isLooping)
+        public void AddAnimation(string spriteName, string animationName, bool isLooping)
         {
             spriteNames.Add(animationName, spriteName);
             currentAnimations.Add(animationName, new Animation(spriteName, isLooping));

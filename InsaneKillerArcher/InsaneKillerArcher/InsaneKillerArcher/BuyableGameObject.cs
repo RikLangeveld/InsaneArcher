@@ -13,7 +13,8 @@ namespace InsaneKillerArcher
         RollingBoulder,
         BoilingOil,
         CastleUpgrade,
-        ArcherUpgrade
+        ArcherUpgrade,
+        CatapultUpgrade
     }
 
     class BuyableGameObject : SpriteGameObject
@@ -31,7 +32,7 @@ namespace InsaneKillerArcher
             base.position = position;
         }
 
-        public void upgradeLevel()
+        public void UpgradeLevel()
         {
             level++;
             isActive = true;

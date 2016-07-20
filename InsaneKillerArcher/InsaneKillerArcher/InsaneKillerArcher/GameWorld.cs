@@ -24,9 +24,7 @@ namespace InsaneKillerArcher
         private GameObjectList groundList;
         private SpriteGameObject ground;
         private Player player;
-
-        private Catapult catapult;
-
+        private GameObjectList catapults;
         private GameObjectList archers;
         private GameObjectList arrows;
         private GameObjectList archerArrows;
@@ -57,14 +55,13 @@ namespace InsaneKillerArcher
             player = new Player();
             player.Position = new Vector2(50, InsaneKillerArcher.Screen.Y - castle.Height - player.Body.Height + 35);
 
-
-            catapult = new Catapult();
-            catapult.Position = new Vector2(200, InsaneKillerArcher.Screen.Y - castle.Height + 85);
             catapultBoulders = new GameObjectList();
 
             archers = new GameObjectList();
+            catapults = new GameObjectList();
 
             Add(archers);
+            Add(catapults);
 
             enemySpawner = new EnemySpawner(2f, EnemySpawner.EnemyType.Enemy);
             zeppelinSpawner = new EnemySpawner(20f, EnemySpawner.EnemyType.Zeppelin);
@@ -77,7 +74,6 @@ namespace InsaneKillerArcher
             Add(enemySpawner);
             Add(zeppelinSpawner);
             Add(player);
-            Add(catapult);
             Add(catapultBoulders);
             Add(arrows);
             Add(archerArrows);
@@ -104,7 +100,7 @@ namespace InsaneKillerArcher
                     enemy.EnemyDead();
 
                 //Als de enemy verwijderd moet worden, wordt de sprite onzichtbaar gemaakt. Hierna wordt deze verwijderd in de EnemySpawner class.
-                if (enemy.shouldDeleteEnemy())
+                if (enemy.ShouldDeleteEnemy())
                     enemy.Visible = false;
 
                 if (enemy.Attack)
@@ -194,26 +190,44 @@ namespace InsaneKillerArcher
                 {
                     castle.CastleLevel++;
 
-                    castle.checkForUpgrades();
+                    castle.CheckForUpgrades();
 
                     upgrade.IsActive = false;
                 }
 
                 if (upgrade.Type == UpgradeType.ArcherUpgrade && upgrade.IsActive)
                 {
-                    int archerSpace = castle.checkForArcherSpace();
+                    int archerSpace = castle.CheckForArcherSpace();
                     castle.AskForArchers += upgrade.Level;
-                    if (archerSpace != 0 || castle.AskForArchers != 0)
+                    if (archerSpace != 0 && castle.AskForArchers != 0)
                     {
                         for (int i = 0; i < castle.AskForArchers; i++)
                         {
                             archerSpace--;
-                            Vector2 newArcherPosition = castle.getNewArcherPosition();
+                            Vector2 newArcherPosition = castle.GetNewArcherPosition();
                             Console.WriteLine(newArcherPosition);
                             if (newArcherPosition != Vector2.Zero)
                             {
                                 archers.Add(new Archer(newArcherPosition));
-                                Console.WriteLine("archer added");
+                            }
+                        }
+                        upgrade.IsActive = false;
+                    }
+                }
+
+                if (upgrade.Type == UpgradeType.CatapultUpgrade && upgrade.IsActive)
+                {
+                    int catapultSpace = castle.CheckForCatapultSpace();
+                    castle.AskForCatapults += upgrade.Level;
+                    if (catapultSpace != 0 && castle.AskForCatapults != 0 )
+                    {
+                        for (int i = 0; i < castle.AskForCatapults; i++)
+                        {
+                            catapultSpace--;
+                            Vector2 newCatapultPosition = castle.GetNewCatapultPosition();
+                            if (newCatapultPosition != Vector2.Zero)
+                            {
+                                catapults.Add(new Catapult(newCatapultPosition));
                             }
                         }
                         upgrade.IsActive = false;
@@ -403,6 +417,9 @@ namespace InsaneKillerArcher
 
                     Vector2 direction = new Vector2(newAdjacent, newOpposite);
                     Vector2 directionNormal = Vector2.Normalize(direction);
+
+                    Arrow arrow = new Arrow(archerPosition, directionNormal, arrowSpeed, direction);
+                    archerArrows.Add(arrow);
                 }
             }
         }
@@ -418,25 +435,36 @@ namespace InsaneKillerArcher
                 //index of object with shortest length
                 int y = 0;
 
+                Vector2 catapultPosition = Vector2.Zero;
+
+
                 for (int i = 0; i < enemySpawner.Objects.Count; i++)
                 {
-                    foreach (Archer archer in archers.Objects)
+                    foreach (Catapult catapult in catapults.Objects)
                     {
-                        float length = (enemySpawner.Objects[i].Position - archer.Position).Length();
+                        float length = (enemySpawner.Objects[i].Position - catapult.Position).Length();
                         if (length < x)
                         {
                             x = length;
                             y = i;
+
+                            catapultPosition = catapult.Position;
+
                         }
                     }
+                    if (catapultPosition != Vector2.Zero)
+                    {
 
-                    Vector2 distanceVector = enemySpawner.Objects[y].Position - catapult.Position;
+                        Vector2 distanceVector = enemySpawner.Objects[y].Position - catapultPosition;
 
-                    float adjacent = distanceVector.X * 0.3f;
-                    float opposite = -distanceVector.Y * 1.5f;
+                        float adjacent = distanceVector.X * 0.3f;
+                        float opposite = -distanceVector.Y * 1.5f;
+
+                    }
 
                     CatapultBoulder boulder = new CatapultBoulder(new Vector2 (catapult.Position.X, catapult.Position.Y - 32), new Vector2(adjacent, opposite));
                     catapultBoulders.Add(boulder);
+
                 }
             }
         }

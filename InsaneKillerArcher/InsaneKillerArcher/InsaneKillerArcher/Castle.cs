@@ -14,6 +14,7 @@ namespace InsaneKillerArcher
         private float health = 1000;
 
         private int askForArchers = 0;
+        private int askForCatapults = 0;
 
         public float Health
         {
@@ -29,7 +30,7 @@ namespace InsaneKillerArcher
             catapultPositions = new Dictionary<Vector2, bool>();
         }
 
-        public int checkForArcherSpace()
+        public int CheckForArcherSpace()
         {
             int archerSpace = 0;
             foreach(var a in archerPositions)
@@ -39,7 +40,17 @@ namespace InsaneKillerArcher
             return archerSpace;
         }
 
-        public Vector2 getNewArcherPosition()
+        public int CheckForCatapultSpace()
+        {
+            int catapultSpace = 0;
+            foreach(var c in catapultPositions)
+            {
+                if (!c.Value) catapultSpace++;
+            }
+            return catapultSpace;
+        }
+
+        public Vector2 GetNewArcherPosition()
         {
             foreach(var a in archerPositions)
             {
@@ -47,6 +58,20 @@ namespace InsaneKillerArcher
                 {
                     archerPositions[a.Key] = !a.Value;
                     return a.Key;
+                }
+            }
+
+            return Vector2.Zero;
+        }
+
+        public Vector2 GetNewCatapultPosition()
+        {
+            foreach(var c in catapultPositions)
+            {
+                if (!c.Value)
+                {
+                    catapultPositions[c.Key] = !c.Value;
+                    return c.Key;
                 }
             }
 
@@ -64,11 +89,13 @@ namespace InsaneKillerArcher
 
         }
 
-        public void checkForUpgrades()
+        public void CheckForUpgrades()
         {
             if (castleLevel == 1)
             {
                 archerPositions.Add(new Vector2(125, InsaneKillerArcher.Screen.Y - Height + 85), false);
+
+                catapultPositions.Add(new Vector2(200, InsaneKillerArcher.Screen.Y - Height + 85), false);
             }
         }
 
@@ -82,6 +109,12 @@ namespace InsaneKillerArcher
         {
             get { return askForArchers; }
             set { askForArchers = value; }
+        }
+
+        public int AskForCatapults
+        {
+            get { return askForCatapults; }
+            set { askForCatapults = value; }
         }
     }
 }
