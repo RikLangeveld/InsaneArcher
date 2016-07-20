@@ -452,22 +452,20 @@ namespace InsaneKillerArcher
                             y = i;
 
                             catapultPosition = catapult.Position;
-
                         }
                     }
+
                     if (catapultPosition != Vector2.Zero)
                     {
-
                         Vector2 distanceVector = enemySpawner.Objects[y].Position - catapultPosition;
 
                         float adjacent = distanceVector.X * 0.3f;
                         float opposite = -distanceVector.Y * 1.5f;
 
+                        CatapultBoulder boulder = new CatapultBoulder(new Vector2(catapultPosition.X, catapultPosition.Y - 32), new Vector2(adjacent, opposite));
+                        catapultBoulders.Add(boulder);
                     }
-
-                    CatapultBoulder boulder = new CatapultBoulder(new Vector2 (catapult.Position.X, catapult.Position.Y - 32), new Vector2(adjacent, opposite));
-                    catapultBoulders.Add(boulder);
-
+                    
                 }
             }
         }
