@@ -25,6 +25,7 @@ namespace InsaneKillerArcher
         private SpriteGameObject ground;
         private Player player;
         private Archer archer;
+        private Catapult catapult;
         private GameObjectList archers;
         private GameObjectList arrows;
         private GameObjectList archerArrows;
@@ -55,6 +56,11 @@ namespace InsaneKillerArcher
             player = new Player();
             player.Position = new Vector2(50, InsaneKillerArcher.Screen.Y - castle.Height - player.Body.Height + 35);
 
+
+            catapult = new Catapult();
+            catapult.Position = new Vector2(200, InsaneKillerArcher.Screen.Y - castle.Height + 85);
+            catapultBoulders = new GameObjectList();
+
             archers = new GameObjectList();
 
             Add(archers);
@@ -70,6 +76,8 @@ namespace InsaneKillerArcher
             Add(enemySpawner);
             Add(zeppelinSpawner);
             Add(player);
+            Add(catapult);
+            Add(catapultBoulders);
             Add(arrows);
             Add(archerArrows);
             Add(animatedProjectiles);
