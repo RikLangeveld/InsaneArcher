@@ -437,6 +437,8 @@ namespace InsaneKillerArcher
 
                             Arrow arrow = new Arrow(archerPosition, directionNormal, arrowSpeed, direction);
                             archerArrows.Add(arrow);
+
+                            castle.ArcherObjects[archer.Key].CanShoot = false;
                         }
                     }
                 }
