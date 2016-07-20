@@ -135,8 +135,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="spr_zeppelin.png">
-      <Name>spr_zeppelin</Name>
+    <Compile Include="spr_zeppelin%401x1.png">
+      <Name>spr_zeppelin%401x1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

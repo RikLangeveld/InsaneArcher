@@ -6,40 +6,19 @@ using System.Text;
 
 namespace InsaneKillerArcher
 {
-    class Zeppelin : SpriteGameObject
+    class Zeppelin : Enemy
     {
-        private Vector2 startPosition = new Vector2(InsaneKillerArcher.Screen.X + 100, 
-            GameEnvironment.Random.Next(InsaneKillerArcher.Screen.Y - 750, InsaneKillerArcher.Screen.Y - 300));
-        private float movementSpeed = 50;
-        private float health = 300f;
 
-        public Zeppelin() : base("spr_zeppelin")
+        public Zeppelin(string moveAnim, string deadAnim, string attackAnim, int moneyDrop) : base(moveAnim, deadAnim, attackAnim, 3f, moneyDrop)
         {
+            startPosition = new Vector2(InsaneKillerArcher.Screen.X + 100,
+                GameEnvironment.Random.Next(InsaneKillerArcher.Screen.Y - 750, InsaneKillerArcher.Screen.Y - 300));
+
             position = startPosition;
 
-            Flying();
-        }
-
-        public void Idle()
-        {
-            velocity = Vector2.Zero;
-        }
-
-        public void Flying()
-        {
-            velocity = new Vector2(-movementSpeed, 0);
-        }
-
-        public void Dead()
-        {
-            velocity = Vector2.Zero;
-            visible = false;
-        }
-
-        public float Health
-        {
-            get { return health; }
-            set { health = value; }
+            movementSpeed = 50;
+            health = 300f;
+            attackDamage = 75f;
         }
     }
 }

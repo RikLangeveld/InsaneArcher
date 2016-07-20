@@ -20,7 +20,6 @@ namespace InsaneKillerArcher
 
         private StatusBar statusBar;
         private EnemySpawner enemySpawner;
-        private EnemySpawner zeppelinSpawner;
         private Castle castle;
         private GameObjectList groundList;
         private SpriteGameObject ground;
@@ -67,8 +66,7 @@ namespace InsaneKillerArcher
             Add(archers);
             Add(catapults);
 
-            enemySpawner = new EnemySpawner(2, 5, EnemyType.Enemy);
-            zeppelinSpawner = new EnemySpawner(10, 20, EnemyType.Zeppelin);
+            enemySpawner = new EnemySpawner(2, 5);
 
             arrows = new GameObjectList();
             archerArrows = new GameObjectList();
@@ -76,7 +74,6 @@ namespace InsaneKillerArcher
 
             Add(castle);
             Add(enemySpawner);
-            Add(zeppelinSpawner);
             Add(player);
             Add(catapultBoulders);
             Add(arrows);
@@ -88,12 +85,9 @@ namespace InsaneKillerArcher
 
         public override void Update(GameTime gameTime)
         {
-
             foreach (Enemy enemy in enemySpawner.Objects)
-
             {
-
-                if(enemy.CollidesWith(castle.mainCastle))
+                if(enemy.CollidesWith(castle.mainCastle) || (enemy.Position.X - castle.mainCastle.Position.X) <= 150)
                 {
                     if (enemy.Health > 0)
                     {
@@ -256,36 +250,7 @@ namespace InsaneKillerArcher
                 }
 
             }
-
-            foreach (Zeppelin zeppelin in zeppelinSpawner.Objects)
-            {
-                float distanceToCastle = (zeppelin.Position - castle.Position).Length();
-                if (distanceToCastle <= 400 || zeppelin.Position.X < 200)
-                    if (zeppelin.Health > 0)
-                        zeppelin.Idle();
-
-                if (zeppelin.Health <= 0)
-                    zeppelin.Dead();
-
-                for (int i = arrows.Objects.Count - 1; i > 0; i--)
-                {
-                    if (zeppelin.CollidesWith(arrows.Objects[i] as Arrow))
-                    {
-                        arrows.Remove(arrows.Objects[i]);
-                        zeppelin.Health -= player.Weapon.Damage;
-                    }
-                }
-
-                for (int i = archerArrows.Objects.Count - 1; i > 0; i--)
-                {
-                    if (zeppelin.CollidesWith(archerArrows.Objects[i] as Arrow))
-                    {
-                        zeppelin.Health -= (archerArrows.Objects[i] as Arrow).damage;
-                        archerArrows.Remove(archerArrows.Objects[i]);
-                    }
-                }
-            }
-
+            
             foreach (Arrow arrow in arrows.Objects)
             {
                 if (IsOutsideRoomLeft(arrow.Position.X, arrow.Width) || IsOutsideRoomRight(arrow.Position.X, arrow.Width))
@@ -326,15 +291,6 @@ namespace InsaneKillerArcher
                     if (ground.CollidesWith(boulder))
                     {
                         boulder.Bounce(ground.Position.Y);
-                    }
-                }
-
-                foreach (Zeppelin zeppelin in zeppelinSpawner.Objects)
-                {
-                    if (boulder.CollidesWith(zeppelin))
-                    {
-                        zeppelin.Health -= 100;
-                        boulder.Visible = false;
                     }
                 }
 
