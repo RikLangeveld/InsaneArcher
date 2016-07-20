@@ -416,9 +416,10 @@ namespace InsaneKillerArcher
                         }
                     }
 
+                    Vector2 distanceVector = enemySpawner.Objects[y].Position - catapult.Position;
 
-                    float adjacent = (enemySpawner.Objects[y].Position.X) - catapult.Position.X * 0.1f;
-                    float opposite = -(enemySpawner.Objects[y].Position.Y) - catapult.Position.X * 0.01f;
+                    float adjacent = distanceVector.X * 0.3f;
+                    float opposite = -distanceVector.Y * 1.5f;
 
                     CatapultBoulder boulder = new CatapultBoulder(catapult.Position, new Vector2(adjacent, opposite));
                     catapultBoulders.Add(boulder);
