@@ -237,8 +237,7 @@ namespace InsaneKillerArcher
                             Vector2 newCatapultPosition = castle.GetNewCatapultPosition();
                             if (newCatapultPosition != Vector2.Zero)
                             {
-                                catapults.Add(new Catapult(newCatapultPosition));
-                               // castle.makeCatapultVisible(newCatapultPosition);
+                                castle.makeCatapultVisible(newCatapultPosition);
                             }
                         }
                         upgrade.IsActive = false;

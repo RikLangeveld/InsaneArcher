@@ -52,10 +52,12 @@ namespace InsaneKillerArcher
             catapultObjects = new Dictionary<Vector2 , SpriteGameObject>();
 
             archerPositions.Add(new Vector2(91, 917), false);
+           // catapultPositions.Add(new Vector2(142, 950), false);
 
             Add(castlePart2);
+            Add(MakeCatapult(new Vector2(142, 950)));
             Add(castlePart1);
-            catapultPositions.Add(new Vector2(142, 950), false);
+
             Add(mainCastle);
         }
 
@@ -121,6 +123,15 @@ namespace InsaneKillerArcher
                 InsaneKillerArcher.GameStateManager.SwitchTo("gameOver");
             }
 
+        }
+
+        public Catapult MakeCatapult(Vector2 position)
+        {
+            Catapult catapult = new Catapult(position);
+            catapultPositions.Add(position, false);
+            catapultObjects.Add(position, catapult);
+            catapult.Visible = false;
+            return catapult;
         }
 
         public void CheckForUpgrades()
