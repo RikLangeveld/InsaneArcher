@@ -91,6 +91,7 @@ namespace InsaneKillerArcher
             {
                 InsaneKillerArcher.AssetManager.PlaySound("buy_shit");
                 archerUpgrade.UpgradeLevel();
+                archerUpgrade.Claimed = false;
             }
 
             if (MouseOver(inputHelper.MousePosition, catapultUpgrade) && inputHelper.MouseLeftButtonPressed())
