@@ -29,6 +29,7 @@ namespace InsaneKillerArcher
         private GameObjectList arrows;
         private GameObjectList archerArrows;
         private GameObjectList animatedProjectiles;
+        private GameObjectList catapultBoulders;
         private AnimatedGameObject boulder;
 
         private Random random = new Random(); // for all your Random needs!. :)
