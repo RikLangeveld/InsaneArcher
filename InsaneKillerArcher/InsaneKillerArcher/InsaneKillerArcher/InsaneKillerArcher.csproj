@@ -76,6 +76,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="InsaneKillerArcher.cs" />
     <Compile Include="Store.cs" />
+    <Compile Include="Troll.cs" />
     <Compile Include="Zeppelin.cs" />
   </ItemGroup>
   <ItemGroup>

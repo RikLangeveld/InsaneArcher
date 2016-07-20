@@ -6,15 +6,18 @@ using Microsoft.Xna.Framework;
 
 namespace InsaneKillerArcher
 {
+    enum EnemyType
+    {
+        Enemy,
+        Zeppelin
+    }
+
     class EnemySpawner : GameObjectList
     {
+        private int minSpawnTime;
+        private int maxSpawnTime;
         private float spawnTime;
         private float currentTime = 0f;
-        
-        public enum EnemyType {
-            Enemy,
-            Zeppelin
-        }
 
         private EnemyType type;
 
@@ -22,9 +25,12 @@ namespace InsaneKillerArcher
         /// Constructor van de EnemySpawner class
         /// </summary>
         /// <param name="spawnTime">De tijd hoelang het duurt totdat er een nieuwe enemy spawnt</param>
-        public EnemySpawner(float spawnTime, EnemyType type)
+        public EnemySpawner(int minSpawnTime, int maxSpawnTime, EnemyType type)
         {
-            this.spawnTime = spawnTime;
+            spawnTime = maxSpawnTime;
+
+            this.minSpawnTime = minSpawnTime;
+            this.maxSpawnTime = maxSpawnTime;
             this.type = type;
         }
 
@@ -40,10 +46,26 @@ namespace InsaneKillerArcher
             if (spawnTime < currentTime)
             {
                 if (type == EnemyType.Enemy)
-                    Add(new Enemy());
+                {
+                    int enemyType = GameEnvironment.Random.Next(3);
+
+                    switch(enemyType)
+                    {
+                        case 0:
+                            Add(new Enemy("spr_enemy_strip2@2x1", "spr_enemy_dead_strip5@5x1", "spr_enemy_fight_strip2@2x1"));
+                            break;
+                        case 1:
+                            Add(new Troll("spr_troll_walking_strip9@9x1", "spr_troll_attacking_strip5@5x1", "spr_troll_attacking_strip5@5x1"));
+                            break;
+                        case 2:
+                            Add(new Enemy("spr_enemy_strip2@2x1", "spr_enemy_dead_strip5@5x1", "spr_enemy_fight_strip2@2x1"));
+                            break;
+                    }
+                }
                 else if (type == EnemyType.Zeppelin)
                     Add(new Zeppelin());
 
+                spawnTime = GameEnvironment.Random.Next(minSpawnTime, maxSpawnTime);
                 currentTime = 0f;
             }
 

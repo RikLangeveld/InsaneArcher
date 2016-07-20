@@ -9,25 +9,26 @@ namespace InsaneKillerArcher
     class Enemy : AnimatedGameObject
     {
         private Vector2 startPosition = new Vector2(InsaneKillerArcher.Screen.X + 100, InsaneKillerArcher.Screen.Y - 20);
-        private float movementSpeed = 100;
-        private float health = 100f;
-        private float attackDamage = 35f;
-        private float attackTimer = 0.5f;
         private bool attacking = false;
         private bool attack = false;
 
+        protected float movementSpeed = 100;
+        protected float health = 100f;
+        protected float attackDamage = 35f;
+        protected float attackTimer = 0.5f;
+       
         private Dictionary<string, Animation> currentAnimations = new Dictionary<string, Animation>();
         private Dictionary<string, string> spriteNames = new Dictionary<string, string>();
 
-        public Enemy() : base(0, "Enemy")
+        public Enemy(string moveAnim, string deadAnim, string attackAnim) : base(0, "Enemy")
         {
-            spriteNames.Add("walkingLeft", "spr_enemy_strip2@2x1");
-            spriteNames.Add("dead", "spr_enemy_dead_strip5@5x1");
-            spriteNames.Add("fighting", "spr_enemy_fight_strip2@2x1");
+            spriteNames.Add("moving", moveAnim);
+            spriteNames.Add("dead", deadAnim);
+            spriteNames.Add("attacking", attackAnim);
 
-            currentAnimations.Add("walkingLeft", new Animation("spr_enemy_strip2@2x1", true));
-            currentAnimations.Add("dead", new Animation("spr_enemy_dead_strip5@5x1", false));
-            currentAnimations.Add("fighting", new Animation("spr_enemy_fight_strip2@2x1", true));
+            currentAnimations.Add("moving", new Animation(moveAnim, true));
+            currentAnimations.Add("dead", new Animation(deadAnim, false));
+            currentAnimations.Add("attacking", new Animation(attackAnim, true));
 
             foreach (var a in currentAnimations)
             {
@@ -36,7 +37,7 @@ namespace InsaneKillerArcher
 
             position = startPosition;
 
-            EnemyWalking();
+            Moving();
         }
 
         public override void Update(GameTime gameTime)
@@ -53,29 +54,24 @@ namespace InsaneKillerArcher
             base.Update(gameTime);
         }
 
-        public void killEnemy()
-        {
-            health = 0;
-        }
-
-        public void EnemyIdle()
+        public void Idle()
         {
             velocity = Vector2.Zero;
-            this.PlayAnimation("fighting");
+            PlayAnimation("attacking");
             attacking = true;
         }
 
-        public void EnemyWalking()
+        public void Moving()
         {
             velocity = new Vector2(-movementSpeed, 0);
-            this.PlayAnimation("walkingLeft");
+            PlayAnimation("moving");
             attacking = false;
         }
 
-        public void EnemyDead()
+        public void Dead()
         {
             velocity = Vector2.Zero;
-            this.PlayAnimation("dead");
+            PlayAnimation("dead");
             attacking = false;
         }
 

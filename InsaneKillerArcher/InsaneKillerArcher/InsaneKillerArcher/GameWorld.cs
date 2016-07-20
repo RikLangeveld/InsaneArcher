@@ -66,8 +66,8 @@ namespace InsaneKillerArcher
 
             Add(archers);
 
-            enemySpawner = new EnemySpawner(2f, EnemySpawner.EnemyType.Enemy);
-            zeppelinSpawner = new EnemySpawner(20f, EnemySpawner.EnemyType.Zeppelin);
+            enemySpawner = new EnemySpawner(2, 5, EnemyType.Enemy);
+            zeppelinSpawner = new EnemySpawner(10, 20, EnemyType.Zeppelin);
 
             arrows = new GameObjectList();
             archerArrows = new GameObjectList();
@@ -96,12 +96,12 @@ namespace InsaneKillerArcher
                 {
                     if (enemy.Health > 0)
                     {
-                        enemy.EnemyIdle();
+                        enemy.Idle();
                     }
                 }
 
                 if (enemy.Health <= 0)
-                    enemy.EnemyDead();
+                    enemy.Dead();
 
                 //Als de enemy verwijderd moet worden, wordt de sprite onzichtbaar gemaakt. Hierna wordt deze verwijderd in de EnemySpawner class.
                 if (enemy.shouldDeleteEnemy())
