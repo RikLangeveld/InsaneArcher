@@ -1,17 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace InsaneKillerArcher
 {
     class Enemy : AnimatedGameObject
     {
-        private Vector2 startPosition = new Vector2(InsaneKillerArcher.Screen.X + 100, InsaneKillerArcher.Screen.Y - 20);
         private bool attacking = false;
         private bool attack = false;
 
+        protected Vector2 startPosition = new Vector2(InsaneKillerArcher.Screen.X + 100, InsaneKillerArcher.Screen.Y - 20);
         protected float movementSpeed = 100;
         protected float health = 100f;
         protected float attackDamage = 35f;

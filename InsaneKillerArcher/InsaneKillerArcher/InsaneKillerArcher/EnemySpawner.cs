@@ -58,7 +58,7 @@ namespace InsaneKillerArcher
                             Add(new Troll("spr_troll_walking_strip9@9x1", "spr_troll_attacking_strip5@5x1", "spr_troll_attacking_strip5@5x1"));
                             break;
                         case 2:
-                            Add(new Enemy("spr_enemy_strip2@2x1", "spr_enemy_dead_strip5@5x1", "spr_enemy_fight_strip2@2x1"));
+                            Add(new Bat("spr_bat_flying_strip12@12x1", "spr_bat_flying_strip12@12x1", "spr_bat_flying_strip12@12x1"));
                             break;
                     }
                 }
